@@ -1,0 +1,469 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UniPulse — Student Wellbeing Platform</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#020408;--surface:#080D14;--surface2:#0D1420;
+  --cyan:#00D4FF;--purple:#7B2FFF;--green:#00E096;
+  --orange:#FF6B35;--red:#FF3B5C;--yellow:#FFD60A;
+  --text:#E8F0FE;--dim:#8899B4;--border:rgba(255,255,255,0.07);
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
+.gnav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;backdrop-filter:blur(20px)}
+.nbrand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;letter-spacing:-.5px}
+.nmark{width:32px;height:32px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 16px rgba(0,212,255,.35)}
+.vtoggle{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px}
+.tbtn{padding:8px 18px;border-radius:9px;border:none;background:transparent;color:var(--dim);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+.tbtn.on{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-weight:700}
+#sv{display:flex;flex-direction:column;align-items:center;padding:36px 20px 60px;min-height:calc(100vh - 61px);background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,212,255,.07) 0%,transparent 70%),var(--bg)}
+.pframe{width:390px;height:800px;background:#000;border-radius:54px;border:8px solid #1C2333;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 60px rgba(0,212,255,.1),0 80px 120px rgba(0,0,0,.9);position:relative;overflow:hidden}
+.pnotch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:32px;background:#000;border-radius:0 0 22px 22px;z-index:10}
+.pscreen{position:absolute;inset:0;background:var(--surface);overflow:hidden}
+.ascreen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;opacity:0;transform:translateX(105%);transition:opacity .38s cubic-bezier(.4,0,.2,1),transform .38s cubic-bezier(.4,0,.2,1)}
+.ascreen::-webkit-scrollbar{display:none}
+.ascreen.active{opacity:1;transform:translateX(0)}
+.ascreen.prev{opacity:0;transform:translateX(-40px)}
+#s0{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 32px 44px;background:linear-gradient(180deg,#050C18 0%,var(--surface) 100%);text-align:center;min-height:100%}
+.orb-wrap{position:relative;margin-bottom:28px}
+.pring{position:absolute;inset:-18px;border-radius:50%;border:2px solid var(--cyan);opacity:0;animation:pring 2.6s ease-out infinite}
+.pring:nth-child(2){animation-delay:.9s}.pring:nth-child(3){animation-delay:1.8s}
+@keyframes pring{0%{transform:scale(.75);opacity:.65}100%{transform:scale(2);opacity:0}}
+.orb{width:88px;height:88px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:28px;display:flex;align-items:center;justify-content:center;font-size:42px;position:relative;z-index:1;box-shadow:0 0 48px rgba(0,212,255,.45);animation:float 3.2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.appname{font-size:38px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1.5px;margin-bottom:8px}
+.tagline{font-size:14px;color:var(--dim);line-height:1.55;max-width:250px;margin-bottom:28px}
+.unibadge{display:flex;align-items:center;gap:10px;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.18);border-radius:16px;padding:10px 16px;margin-bottom:36px;font-size:13px;color:var(--cyan)}
+.ulogo{width:28px;height:28px;background:var(--cyan);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#000;font-weight:900;font-size:12px}
+.btnp{width:100%;padding:16px;background:linear-gradient(135deg,var(--cyan),var(--purple));border:none;border-radius:16px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;animation:bpulse 2.2s ease-in-out infinite;transition:transform .1s}
+.btnp:active{transform:scale(.97)}
+@keyframes bpulse{0%,100%{box-shadow:0 4px 20px rgba(0,212,255,.3)}50%{box-shadow:0 4px 44px rgba(0,212,255,.6),0 4px 24px rgba(123,47,255,.5)}}
+.btns{background:transparent;border:1px solid var(--border);border-radius:12px;color:var(--dim);padding:11px;font-size:13px;cursor:pointer;width:100%;margin-top:11px;transition:all .2s}
+.btns:hover{border-color:var(--cyan);color:var(--cyan)}
+#s1{padding:50px 22px 36px;display:flex;flex-direction:column;gap:16px;min-height:100%}
+.sgreet{font-size:24px;font-weight:800}
+.ssub{font-size:13px;color:var(--dim);margin-top:2px}
+.ccard{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:18px}
+.clbl{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.9px;margin-bottom:14px}
+.memojis{display:flex;justify-content:space-between;margin-bottom:12px}
+.memoji{font-size:24px;opacity:.3;transition:all .22s;cursor:pointer;line-height:1}
+.memoji.on{opacity:1;transform:scale(1.35);filter:drop-shadow(0 0 8px rgba(0,212,255,.6))}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:3px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:50%;cursor:pointer;box-shadow:0 0 12px rgba(0,212,255,.55);transition:transform .1s}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
+.srow{display:flex;flex-direction:column;gap:13px}
+.sitem{display:flex;flex-direction:column;gap:6px}
+.shdr{display:flex;justify-content:space-between;align-items:center}
+.slbl{font-size:13px;color:var(--dim)}
+.sval{font-size:13px;font-weight:700;color:var(--cyan)}
+textarea.tinp{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:14px;color:var(--text);font-size:14px;width:100%;resize:none;font-family:inherit;transition:border-color .2s;outline:none;line-height:1.5}
+textarea.tinp:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,212,255,.1)}
+textarea.tinp::placeholder{color:var(--dim)}
+.subbtn{width:100%;padding:16px;background:linear-gradient(135deg,var(--cyan),var(--purple));border:none;border-radius:16px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .1s}
+.subbtn:active{transform:scale(.97)}
+.pdot{width:8px;height:8px;background:#fff;border-radius:50%;animation:pdot 1.3s ease-in-out infinite}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+#s2{padding:50px 22px 36px;display:flex;flex-direction:column;gap:16px;min-height:100%}
+.rhdr{text-align:center;padding:12px 0}
+.pts{font-size:68px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.ptslbl{font-size:13px;color:var(--dim);margin-top:4px}
+.streak{display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,53,.13);border:1px solid rgba(255,107,53,.28);border-radius:20px;padding:6px 14px;font-size:14px;font-weight:700;color:var(--orange);margin-top:10px}
+.progsec{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:18px}
+.proghdr{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px;font-weight:600}
+.progbg{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+.progfill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:4px;width:0%;transition:width 1.6s cubic-bezier(.4,0,.2,1)}
+.progsub{font-size:12px;color:var(--dim);margin-top:8px}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.rcard{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
+.rcard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--cyan),var(--purple));opacity:0;transition:opacity .2s}
+.rcard:active{transform:scale(.94)}
+.rcard:hover::after{opacity:.06}
+.rico{font-size:28px;margin-bottom:7px}
+.rname{font-size:12px;font-weight:700;margin-bottom:4px;position:relative;z-index:1}
+.rpts{font-size:11px;font-weight:700;color:var(--cyan);position:relative;z-index:1}
+.rcard.lkd .rico{filter:grayscale(1);opacity:.35}
+.rcard.lkd .rname,.rcard.lkd .rpts{color:var(--dim)}
+.bkbtn{background:transparent;border:1px solid var(--border);border-radius:13px;color:var(--dim);padding:13px;font-size:14px;cursor:pointer;width:100%;transition:all .2s}
+.bkbtn:hover{border-color:var(--cyan);color:var(--cyan)}
+#dv{min-height:calc(100vh - 61px);padding:28px 28px 48px;background:radial-gradient(ellipse 50% 35% at 80% 15%,rgba(123,47,255,.07) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 15% 80%,rgba(0,212,255,.05) 0%,transparent 60%),var(--bg)}
+.dhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:14px}
+.dbrand{display:flex;align-items:center;gap:14px}
+.dlogo{width:48px;height:48px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 0 32px rgba(0,212,255,.25)}
+.dtitle h1{font-size:23px;font-weight:800;letter-spacing:-.5px}
+.dtitle p{font-size:13px;color:var(--dim);margin-top:3px}
+.livebadge{display:flex;align-items:center;gap:7px;background:rgba(0,224,150,.09);border:1px solid rgba(0,224,150,.22);border-radius:20px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--green)}
+.ldot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:ldot 1.6s ease-in-out infinite}
+@keyframes ldot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+.srow2{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;cursor:default}
+.scard:hover{border-color:rgba(0,212,255,.2);transform:translateY(-2px)}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));opacity:0;transition:opacity .2s}
+.scard:hover::before{opacity:1}
+.sico{font-size:20px;margin-bottom:11px}
+.sval2{font-size:34px;font-weight:900;letter-spacing:-1px;line-height:1}
+.slb{font-size:12px;color:var(--dim);margin-top:4px}
+.schg{font-size:11px;font-weight:600;margin-top:8px}
+.schg.up{color:var(--green)}.schg.dn{color:var(--red)}.schg.al{color:var(--orange)}
+.abadge{display:inline-flex;align-items:center;justify-content:center;background:var(--red);border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:6px;animation:abounce 1.1s ease-in-out infinite}
+@keyframes abounce{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.dgrid{display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:22px;margin-bottom:20px}
+.panel:last-child{margin-bottom:0}
+.phdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.ptitle{font-size:15px;font-weight:700}
+.pmeta{font-size:12px;color:var(--dim)}
+.hgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.fcrd{background:var(--surface2);border-radius:15px;padding:15px;border:1px solid var(--border);position:relative;overflow:hidden;transition:transform .2s;cursor:default}
+.fcrd:hover{transform:translateY(-2px)}
+.fcrd::before{content:'';position:absolute;inset:0;opacity:.06}
+.fcrd.gr::before{background:var(--green)}.fcrd.ye::before{background:var(--yellow)}.fcrd.or::before{background:var(--orange)}.fcrd.re::before{background:var(--red)}
+.ftop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px}
+.fname{font-size:13px;font-weight:700}
+.ftrend{font-size:17px}
+.fbar{height:4px;border-radius:2px;background:rgba(255,255,255,.07);margin-bottom:8px;overflow:hidden}
+.ffill{height:100%;border-radius:2px}
+.fcrd.gr .ffill{background:var(--green)}.fcrd.ye .ffill{background:var(--yellow)}.fcrd.or .ffill{background:var(--orange)}.fcrd.re .ffill{background:var(--red)}
+.fstats{display:flex;justify-content:space-between;font-size:11px;color:var(--dim)}
+#trendChart{display:block;border-radius:8px}
+.clegend{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap}
+.litem{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim)}
+.lline{width:24px;height:3px;border-radius:2px}
+.aipanel{background:linear-gradient(135deg,rgba(0,212,255,.04),rgba(123,47,255,.06));border:1px solid rgba(0,212,255,.18);border-radius:22px;padding:22px;margin-bottom:16px}
+.aihdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.aiav{width:38px;height:38px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ainame{font-size:14px;font-weight:700}
+.aisub{font-size:11px;color:var(--dim)}
+.aimsg{font-size:13.5px;line-height:1.7;color:rgba(232,240,254,.82)}
+.aihi{color:var(--cyan);font-weight:700}
+.aihi.r{color:var(--red)}
+.alpanel{background:rgba(255,59,92,.055);border:1px solid rgba(255,59,92,.22);border-radius:20px;padding:20px;margin-bottom:16px}
+.altop{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.aliwrap{width:38px;height:38px;background:rgba(255,59,92,.13);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.albody h4{font-size:14px;font-weight:700;color:var(--red);margin-bottom:4px}
+.albody p{font-size:13px;color:var(--dim);line-height:1.5}
+.albtn{width:100%;padding:10px;background:rgba(255,59,92,.12);border:1px solid rgba(255,59,92,.28);border-radius:10px;color:var(--red);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.albtn:hover{background:rgba(255,59,92,.22)}
+.flist{display:flex;flex-direction:column;gap:10px}
+.fitem{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:11px;align-items:flex-start;transition:border-color .2s}
+.fitem:hover{border-color:rgba(0,212,255,.18)}
+.fmood{font-size:22px;line-height:1;flex-shrink:0}
+.ftxt{font-size:13px;color:rgba(232,240,254,.78);line-height:1.5}
+.fmet{font-size:11px;color:var(--dim);margin-top:4px}
+#ccv{position:fixed;inset:0;pointer-events:none;z-index:999;display:none}
+.hidden{display:none!important}
+@media(max-width:1100px){.dgrid{grid-template-columns:1fr}.srow2{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){#sv{padding:20px 12px 40px}.pframe{width:100%;max-width:390px}#dv{padding:16px 14px}}
+</style>
+</head>
+<body>
+<nav class="gnav">
+  <div class="nbrand"><div class="nmark">&#x1F499;</div>UniPulse</div>
+  <div class="vtoggle">
+    <button class="tbtn on" id="btnSV" onclick="showView('s')">&#x1F4F1; Student View</button>
+    <button class="tbtn" id="btnDV" onclick="showView('d')">&#x1F3DB; University Dashboard</button>
+  </div>
+</nav>
+<!-- STUDENT VIEW -->
+<div id="sv">
+  <div class="pframe">
+    <div class="pnotch"></div>
+    <div class="pscreen">
+      <!-- Screen 0: Onboarding -->
+      <div class="ascreen active" id="s0">
+        <div class="orb-wrap">
+          <div class="pring"></div><div class="pring"></div><div class="pring"></div>
+          <div class="orb">&#x1F499;</div>
+        </div>
+        <div class="appname">UniPulse</div>
+        <p class="tagline">Check in. Earn rewards.<br>Feel supported.</p>
+        <div class="unibadge"><div class="ulogo">W</div>University of Waikato</div>
+        <button class="btnp" onclick="goScreen(1)">Get Started &rarr;</button>
+        <button class="btns">Sign in to existing account</button>
+      </div>
+      <!-- Screen 1: Check-in -->
+      <div class="ascreen" id="s1">
+        <div class="sgreet">Kia ora &#x1F44B;</div>
+        <p class="ssub">Monday, 2 June &middot; Daily check-in</p>
+        <div class="ccard">
+          <div class="clbl">How are you feeling?</div>
+          <div class="memojis">
+            <span class="memoji" data-v="1">&#x1F622;</span>
+            <span class="memoji" data-v="2">&#x1F615;</span>
+            <span class="memoji on" data-v="3">&#x1F610;</span>
+            <span class="memoji" data-v="4">&#x1F642;</span>
+            <span class="memoji" data-v="5">&#x1F604;</span>
+          </div>
+          <input type="range" id="mslider" min="1" max="5" value="3" oninput="updMood(this.value)">
+        </div>
+        <div class="ccard">
+          <div class="clbl">Rate your day</div>
+          <div class="srow">
+            <div class="sitem">
+              <div class="shdr"><span class="slbl">&#x1F620; Stress level</span><span class="sval" id="sv1">3</span></div>
+              <input type="range" min="1" max="5" value="3" oninput="document.getElementById('sv1').textContent=this.value">
+            </div>
+            <div class="sitem">
+              <div class="shdr"><span class="slbl">&#x1F634; Sleep quality</span><span class="sval" id="sv2">3</span></div>
+              <input type="range" min="1" max="5" value="3" oninput="document.getElementById('sv2').textContent=this.value">
+            </div>
+            <div class="sitem">
+              <div class="shdr"><span class="slbl">&#x1F91D; Social connection</span><span class="sval" id="sv3">3</span></div>
+              <input type="range" min="1" max="5" value="3" oninput="document.getElementById('sv3').textContent=this.value">
+            </div>
+          </div>
+        </div>
+        <div class="ccard">
+          <div class="clbl">What&#39;s on your mind today?</div>
+          <textarea class="tinp" rows="3" placeholder="Share anything — it&#39;s anonymous..."></textarea>
+        </div>
+        <button class="subbtn" id="subBtn" onclick="doSubmit()">
+          <span class="pdot"></span>Submit Check-in
+        </button>
+      </div>
+      <!-- Screen 2: Results -->
+      <div class="ascreen" id="s2">
+        <div class="rhdr">
+          <div style="font-size:38px">&#x1F389;</div>
+          <div style="font-size:16px;font-weight:800;margin:8px 0 4px">Check-in Complete!</div>
+          <div style="font-size:13px;color:var(--dim)">Here&#39;s your reward progress</div>
+          <div class="pts" id="ptsDis">0</div>
+          <div class="ptslbl">total points earned</div>
+          <div class="streak">&#x1F525; 7 day streak</div>
+        </div>
+        <div class="progsec">
+          <div class="proghdr">
+            <span>Progress to Gym Pass &#x1F3CB;</span>
+            <span style="color:var(--cyan)">75 / 100 pts</span>
+          </div>
+          <div class="progbg"><div class="progfill" id="pbar"></div></div>
+          <div class="progsub">25 more points to unlock</div>
+        </div>
+        <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.9px;margin:4px 0 10px">Rewards Catalogue</div>
+        <div class="rgrid">
+          <div class="rcard" onclick="tapR(this)"><div class="rico">&#x1F3CB;</div><div class="rname">Gym Pass</div><div class="rpts">100 pts</div></div>
+          <div class="rcard" onclick="tapR(this)"><div class="rico">&#x2615;</div><div class="rname">Cafe Voucher</div><div class="rpts">150 pts</div></div>
+          <div class="rcard lkd" onclick="tapR(this)"><div class="rico">&#x1F39F;</div><div class="rname">Event Ticket</div><div class="rpts">300 pts</div></div>
+          <div class="rcard lkd" onclick="tapR(this)"><div class="rico">&#x1F455;</div><div class="rname">Uni Merch</div><div class="rpts">500 pts</div></div>
+        </div>
+        <button class="bkbtn" onclick="goScreen(0)" style="margin-top:6px">&larr; Back to Start</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- UNIVERSITY DASHBOARD -->
+<div id="dv" class="hidden">
+  <div class="dhdr">
+    <div class="dbrand">
+      <div class="dlogo">&#x1F499;</div>
+      <div class="dtitle"><h1>UniPulse</h1><p>University of Waikato &middot; Student Wellbeing Intelligence</p></div>
+    </div>
+    <div class="livebadge"><div class="ldot"></div>Live &middot; Updated 2 min ago</div>
+  </div>
+  <div class="srow2">
+    <div class="scard"><div class="sico">&#x1F465;</div><div class="sval2" style="color:var(--cyan)">847</div><div class="slb">Active Students</div><div class="schg up">&#x2191; 12 since yesterday</div></div>
+    <div class="scard"><div class="sico">&#x1F4CA;</div><div class="sval2" style="color:var(--purple)">73%</div><div class="slb">Participation Rate</div><div class="schg up">&#x2191; 5% this week</div></div>
+    <div class="scard"><div class="sico">&#x1F49B;</div><div class="sval2" style="color:var(--yellow)">3.8</div><div class="slb">Avg Mood Score / 5</div><div class="schg dn">&#x2193; 0.2 vs last week</div></div>
+    <div class="scard"><div class="sico">&#x1F514;</div><div class="sval2" style="color:var(--red)">3<span class="abadge">!</span></div><div class="slb">Active Alerts</div><div class="schg al">Requires attention</div></div>
+  </div>
+  <div class="dgrid">
+    <div>
+      <!-- Heatmap -->
+      <div class="panel">
+        <div class="phdr"><div class="ptitle">Faculty Wellbeing Heatmap</div><div class="pmeta">Avg stress &middot; This week</div></div>
+        <div class="hgrid">
+          <div class="fcrd or"><div class="ftop"><div class="fname">&#x2699; Engineering</div><div class="ftrend" style="color:var(--orange)">&#x2191;</div></div><div class="fbar"><div class="ffill" style="width:72%"></div></div><div class="fstats"><span>Stress <b>72%</b></span><span>Mood <b>3.1</b></span></div></div>
+          <div class="fcrd gr"><div class="ftop"><div class="fname">&#x1F52C; Science</div><div class="ftrend" style="color:var(--dim)">&#x2192;</div></div><div class="fbar"><div class="ffill" style="width:45%"></div></div><div class="fstats"><span>Stress <b>45%</b></span><span>Mood <b>4.0</b></span></div></div>
+          <div class="fcrd gr"><div class="ftop"><div class="fname">&#x1F3A8; Arts</div><div class="ftrend" style="color:var(--green)">&#x2193;</div></div><div class="fbar"><div class="ffill" style="width:30%"></div></div><div class="fstats"><span>Stress <b>30%</b></span><span>Mood <b>4.3</b></span></div></div>
+          <div class="fcrd ye"><div class="ftop"><div class="fname">&#x1F4BC; Business</div><div class="ftrend" style="color:var(--yellow)">&#x2191;</div></div><div class="fbar"><div class="ffill" style="width:58%"></div></div><div class="fstats"><span>Stress <b>58%</b></span><span>Mood <b>3.5</b></span></div></div>
+          <div class="fcrd re"><div class="ftop"><div class="fname">&#x2696; Law</div><div class="ftrend" style="color:var(--red)">&#x2191;</div></div><div class="fbar"><div class="ffill" style="width:81%"></div></div><div class="fstats"><span>Stress <b>81%</b></span><span>Mood <b>2.8</b></span></div></div>
+          <div class="fcrd gr"><div class="ftop"><div class="fname">&#x1F3E5; Health</div><div class="ftrend" style="color:var(--dim)">&#x2192;</div></div><div class="fbar"><div class="ffill" style="width:38%"></div></div><div class="fstats"><span>Stress <b>38%</b></span><span>Mood <b>4.1</b></span></div></div>
+        </div>
+      </div>
+      <!-- Trend Chart -->
+      <div class="panel">
+        <div class="phdr">
+          <div class="ptitle">4-Week Trend Analysis</div>
+          <div class="pmeta"><span style="background:rgba(255,59,92,.13);color:var(--red);padding:2px 9px;border-radius:5px;font-size:11px;font-weight:600">&#x1F4C5; Exam Period: Wk 3&ndash;4</span></div>
+        </div>
+        <canvas id="trendChart"></canvas>
+        <div class="clegend">
+          <div class="litem"><div class="lline" style="background:var(--cyan)"></div>Mood Score</div>
+          <div class="litem"><div class="lline" style="background:var(--purple)"></div>Stress Level</div>
+          <div class="litem"><div class="lline" style="background:rgba(255,59,92,.45);border:1px dashed var(--red)"></div>Exam Period</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <!-- AI Insights -->
+      <div class="aipanel">
+        <div class="aihdr">
+          <div class="aiav">&#x1F916;</div>
+          <div><div class="ainame">UniPulse AI</div><div class="aisub">Pattern analysis &middot; 847 data points today</div></div>
+        </div>
+        <div class="aimsg">
+          <span class="aihi">Engineering cohort stress is up 28%</span> ahead of Friday&#39;s submission deadline. Recommend proactive outreach via the Wellness Hub portal.<br><br>
+          <span class="aihi">Arts students are showing the best scores this semester</span> &mdash; engagement up 15% following the peer support programme launch in Week 1.<br><br>
+          Law faculty stress indicators are at a <span class="aihi r">semester high</span>. Consider scheduling a drop-in counselling session this week before it escalates further.
+        </div>
+      </div>
+      <!-- Alert -->
+      <div class="alpanel">
+        <div class="altop">
+          <div class="aliwrap">&#x26A0;</div>
+          <div class="albody">
+            <h4>Stress Spike &mdash; Year 2 Engineering</h4>
+            <p>34 students flagged with elevated stress indicators over the past 48 hours. Correlation with Friday deadline confirmed.</p>
+          </div>
+        </div>
+        <button class="albtn" id="alertBtn" onclick="this.innerHTML='&#x2713; Resources Pushed Successfully';this.style.color='var(--green)';this.style.borderColor='rgba(0,224,150,.35)'">
+          &rarr; Push Wellness Resources Now
+        </button>
+      </div>
+      <!-- Feed -->
+      <div class="panel">
+        <div class="phdr"><div class="ptitle">Anonymous Check-in Feed</div><div class="pmeta">Live &middot; Anonymised</div></div>
+        <div class="flist">
+          <div class="fitem"><div class="fmood">&#x1F615;</div><div><div class="ftxt">Feeling overwhelmed with assignments stacking up before exams. Could really use some support resources right now.</div><div class="fmet">Engineering &middot; 3 min ago</div></div></div>
+          <div class="fitem"><div class="fmood">&#x1F604;</div><div><div class="ftxt">Peer study group really helped today! Feeling so much more confident about the upcoming test.</div><div class="fmet">Science &middot; 11 min ago</div></div></div>
+          <div class="fitem"><div class="fmood">&#x1F610;</div><div><div class="ftxt">Struggling to sleep with all the deadlines. Tried the breathing exercises &mdash; they helped a bit.</div><div class="fmet">Law &middot; 24 min ago</div></div></div>
+          <div class="fitem"><div class="fmood">&#x1F642;</div><div><div class="ftxt">Love that we get rewarded for checking in! The cafe voucher really motivated me to keep up my streak.</div><div class="fmet">Arts &middot; 38 min ago</div></div></div>
+          <div class="fitem"><div class="fmood">&#x1F622;</div><div><div class="ftxt">Really tough week. Homesickness hitting hard. Appreciate having somewhere safe to say this.</div><div class="fmet">Business &middot; 52 min ago</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<canvas id="ccv"></canvas>
+<script>
+function showView(v){
+  var isSV=v==='s';
+  document.getElementById('sv').style.display=isSV?'flex':'none';
+  var dv=document.getElementById('dv');
+  if(isSV)dv.classList.add('hidden');else dv.classList.remove('hidden');
+  document.getElementById('btnSV').classList.toggle('on',isSV);
+  document.getElementById('btnDV').classList.toggle('on',!isSV);
+  if(!isSV)setTimeout(drawChart,60);
+}
+var cur=0;
+function goScreen(n){
+  document.querySelectorAll('.ascreen').forEach(function(s,i){
+    s.classList.remove('active','prev');
+    if(i<n)s.classList.add('prev');
+  });
+  document.getElementById('s'+n).classList.add('active');
+  cur=n;
+  if(n===2)setTimeout(animResults,350);
+}
+function updMood(v){
+  document.querySelectorAll('.memoji').forEach(function(e){
+    e.classList.toggle('on',+e.dataset.v===+v);
+  });
+}
+document.querySelectorAll('.memoji').forEach(function(e){
+  e.addEventListener('click',function(){
+    document.getElementById('mslider').value=e.dataset.v;
+    updMood(e.dataset.v);
+  });
+});
+function doSubmit(){
+  var btn=document.getElementById('subBtn');
+  btn.innerHTML='&#x23F3; Submitting...';btn.style.opacity='.7';
+  setTimeout(function(){
+    btn.innerHTML='<span class="pdot"></span>Submit Check-in';
+    btn.style.opacity='1';goScreen(2);
+  },750);
+}
+function animResults(){
+  var el=document.getElementById('ptsDis'),target=75,dur=1450,t0=performance.now();
+  (function step(now){
+    var p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(e*target);
+    if(p<1)requestAnimationFrame(step);
+  })(performance.now());
+  setTimeout(function(){document.getElementById('pbar').style.width='75%';},180);
+  spawnConfetti();
+}
+function tapR(c){c.style.transform='scale(.91)';setTimeout(function(){c.style.transform='';},160);}
+function spawnConfetti(){
+  var cv=document.getElementById('ccv'),ctx=cv.getContext('2d');
+  cv.style.display='block';cv.width=innerWidth;cv.height=innerHeight;
+  var cols=['#00D4FF','#7B2FFF','#00E096','#FFD60A','#FF6B35','#FF3B5C','#ffffff'];
+  var ps=Array.from({length:140},function(){return{
+    x:Math.random()*innerWidth,y:-20-Math.random()*80,
+    w:Math.random()*10+4,h:Math.random()*5+3,
+    col:cols[0|Math.random()*cols.length],
+    vy:Math.random()*3.5+1.5,vx:Math.random()*3-1.5,
+    rot:Math.random()*Math.PI*2,sp:(Math.random()-.5)*.18
+  };});
+  var t0=null;
+  (function draw(ts){
+    if(!t0)t0=ts;var el=ts-t0;
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(function(p){
+      p.y+=p.vy;p.x+=p.vx;p.rot+=p.sp;
+      var a=Math.max(0,1-Math.max(0,el-1800)/1400);
+      if(a<=0)return;
+      ctx.save();ctx.globalAlpha=a;ctx.translate(p.x,p.y);ctx.rotate(p.rot);
+      ctx.fillStyle=p.col;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
+    });
+    if(el<3200)requestAnimationFrame(draw);
+    else{cv.style.display='none';ctx.clearRect(0,0,cv.width,cv.height);}
+  })();
+}
+function drawChart(){
+  var cv=document.getElementById('trendChart');if(!cv)return;
+  var par=cv.parentElement,dpr=devicePixelRatio||1;
+  var W=par.clientWidth-44,H=220;
+  cv.style.width=W+'px';cv.style.height=H+'px';
+  cv.width=W*dpr;cv.height=H*dpr;
+  var ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+  var mood=[3.8,3.9,3.7,3.8,3.6,3.9,3.8,3.7,3.5,3.6,3.8,3.5,3.4,3.6,3.2,3.0,3.1,2.9,3.0,2.8,3.1,2.9,2.7,2.8,3.0,3.1,3.2,3.3];
+  var stress=[2.5,2.3,2.6,2.4,2.7,2.5,2.4,2.8,2.9,2.7,3.0,3.1,2.9,3.0,3.5,3.7,3.8,3.9,4.0,4.2,3.9,4.1,4.3,4.2,3.9,3.7,3.5,3.3];
+  var n=mood.length,pad={t:20,r:14,b:36,l:34};
+  var cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
+  function xp(i){return pad.l+(i/(n-1))*cw;}
+  function yp(v){return pad.t+ch-(v/5)*ch;}
+  ctx.fillStyle='rgba(255,59,92,.07)';
+  ctx.fillRect(xp(14),pad.t,xp(27)-xp(14),ch);
+  ctx.save();ctx.strokeStyle='rgba(255,59,92,.25)';ctx.setLineDash([4,4]);ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(xp(14),pad.t);ctx.lineTo(xp(14),pad.t+ch);ctx.stroke();
+  ctx.restore();
+  [1,2,3,4,5].forEach(function(v){
+    var y=yp(v);
+    ctx.strokeStyle='rgba(255,255,255,.045)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cw,y);ctx.stroke();
+    ctx.fillStyle='rgba(136,153,180,.7)';ctx.font='10px system-ui';ctx.textAlign='right';
+    ctx.fillText(v,pad.l-5,y+3.5);
+  });
+  ['Wk 1','Wk 2','Wk 3','Wk 4'].forEach(function(lbl,i){
+    ctx.fillStyle='rgba(136,153,180,.8)';ctx.font='11px system-ui';ctx.textAlign='center';
+    ctx.fillText(lbl,pad.l+(i/3)*cw,H-7);
+  });
+  function drawLine(data,stroke,fillColor){
+    var grad=ctx.createLinearGradient(0,pad.t,0,pad.t+ch);
+    grad.addColorStop(0,fillColor);grad.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath();ctx.moveTo(xp(0),yp(data[0]));
+    for(var i=1;i<n;i++){var mx=(xp(i-1)+xp(i))/2;ctx.bezierCurveTo(mx,yp(data[i-1]),mx,yp(data[i]),xp(i),yp(data[i]));}
+    ctx.lineTo(xp(n-1),pad.t+ch);ctx.lineTo(xp(0),pad.t+ch);ctx.closePath();
+    ctx.fillStyle=grad;ctx.fill();
+    ctx.beginPath();ctx.moveTo(xp(0),yp(data[0]));
+    for(var i=1;i<n;i++){var mx=(xp(i-1)+xp(i))/2;ctx.bezierCurveTo(mx,yp(data[i-1]),mx,yp(data[i]),xp(i),yp(data[i]));}
+    ctx.strokeStyle=stroke;ctx.lineWidth=2.5;ctx.shadowColor=stroke;ctx.shadowBlur=7;
+    ctx.stroke();ctx.shadowBlur=0;
+    [0,7,14,21,27].forEach(function(i){
+      ctx.beginPath();ctx.arc(xp(i),yp(data[i]),4,0,Math.PI*2);
+      ctx.fillStyle=stroke;ctx.shadowColor=stroke;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+    });
+  }
+  drawLine(stress,'#7B2FFF','rgba(123,47,255,.22)');
+  drawLine(mood,'#00D4FF','rgba(0,212,255,.22)');
+}
+window.addEventListener('resize',function(){
+  if(!document.getElementById('dv').classList.contains('hidden'))drawChart();
+});
+</script>
+</body>
+</html>
