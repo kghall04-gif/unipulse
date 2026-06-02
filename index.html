@@ -3,46 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UniPulse — Student Wellbeing Platform</title>
+<title>UniPulse — University of Waikato Student Wellbeing</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#020408;--surface:#080D14;--surface2:#0D1420;
-  --cyan:#00D4FF;--purple:#7B2FFF;--green:#00E096;
-  --orange:#FF6B35;--red:#FF3B5C;--yellow:#FFD60A;
-  --text:#E8F0FE;--dim:#8899B4;--border:rgba(255,255,255,0.07);
+  --bg:#0C0C14;--surface:#121220;--surface2:#181828;
+  --red:#CC0000;--dkred:#8B0000;--gold:#FFB800;
+  --green:#00C875;--alert:#FF4560;--yellow:#FFB800;
+  --text:#F0F0F6;--dim:#8899B4;--border:rgba(255,255,255,0.08);
+  /* legacy aliases so all var() refs still resolve */
+  --cyan:#CC0000;--purple:#8B0000;--orange:#FFB800;
 }
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
-.gnav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;backdrop-filter:blur(20px)}
-.nbrand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;letter-spacing:-.5px}
-.nmark{width:32px;height:32px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 16px rgba(0,212,255,.35)}
+
+/* ── NAV ── */
+.gnav{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;backdrop-filter:blur(20px)}
+.nbrand{display:flex;align-items:center;gap:12px}
+/* Waikato crest shapes */
+.wcrest-sm{width:28px;height:32px;background:#CC0000;clip-path:polygon(0 0,100% 0,100% 68%,50% 100%,0 68%);display:flex;align-items:flex-start;justify-content:center;padding-top:5px;color:#FFB800;font-weight:900;font-size:13px;flex-shrink:0;box-shadow:0 0 14px rgba(204,0,0,.45)}
+.wcrest-md{width:40px;height:46px;background:#CC0000;clip-path:polygon(0 0,100% 0,100% 68%,50% 100%,0 68%);display:flex;align-items:flex-start;justify-content:center;padding-top:8px;color:#FFB800;font-weight:900;font-size:18px;flex-shrink:0;box-shadow:0 0 22px rgba(204,0,0,.5)}
+.wcrest-lg{width:52px;height:60px;background:#CC0000;clip-path:polygon(0 0,100% 0,100% 68%,50% 100%,0 68%);display:flex;align-items:flex-start;justify-content:center;padding-top:10px;color:#FFB800;font-weight:900;font-size:24px;flex-shrink:0;box-shadow:0 0 32px rgba(204,0,0,.5)}
+/* Waikato text treatment */
+.wtx{display:flex;flex-direction:column;gap:0;line-height:1}
+.wtx .wuni{font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);margin-bottom:1px}
+.wtx .wname{font-size:18px;font-weight:900;letter-spacing:-.5px;color:var(--text)}
+.wtx .wmaori{font-size:9px;font-style:italic;color:var(--dim);margin-top:1px}
+.wtx.lg .wuni{font-size:9px}
+.wtx.lg .wname{font-size:22px}
+.wtx.lg .wmaori{font-size:10px}
+/* Nav divider + UniPulse pill */
+.ndiv{width:1px;height:28px;background:var(--border);margin:0 4px}
+.npill{display:flex;align-items:center;gap:7px;font-size:16px;font-weight:800;letter-spacing:-.4px;color:var(--text)}
+.npulse{width:10px;height:10px;background:#CC0000;border-radius:50%;animation:npulse 2s ease-in-out infinite;box-shadow:0 0 0 0 rgba(204,0,0,.5)}
+@keyframes npulse{0%,100%{box-shadow:0 0 0 0 rgba(204,0,0,.4)}50%{box-shadow:0 0 0 6px rgba(204,0,0,0)}}
 .vtoggle{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px}
 .tbtn{padding:8px 18px;border-radius:9px;border:none;background:transparent;color:var(--dim);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
-.tbtn.on{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-weight:700}
-#sv{display:flex;flex-direction:column;align-items:center;padding:36px 20px 60px;min-height:calc(100vh - 61px);background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,212,255,.07) 0%,transparent 70%),var(--bg)}
-.pframe{width:390px;height:800px;background:#000;border-radius:54px;border:8px solid #1C2333;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 60px rgba(0,212,255,.1),0 80px 120px rgba(0,0,0,.9);position:relative;overflow:hidden}
+.tbtn.on{background:linear-gradient(135deg,#CC0000,#8B0000);color:#fff;font-weight:700;box-shadow:0 2px 12px rgba(204,0,0,.4)}
+
+/* ── STUDENT VIEW ── */
+#sv{display:flex;flex-direction:column;align-items:center;padding:36px 20px 60px;min-height:calc(100vh - 61px);background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(204,0,0,.06) 0%,transparent 70%),var(--bg)}
+.pframe{width:390px;height:800px;background:#000;border-radius:54px;border:8px solid #1C1C2C;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 60px rgba(204,0,0,.1),0 80px 120px rgba(0,0,0,.9);position:relative;overflow:hidden}
 .pnotch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:32px;background:#000;border-radius:0 0 22px 22px;z-index:10}
 .pscreen{position:absolute;inset:0;background:var(--surface);overflow:hidden}
 .ascreen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;opacity:0;transform:translateX(105%);transition:opacity .38s cubic-bezier(.4,0,.2,1),transform .38s cubic-bezier(.4,0,.2,1)}
 .ascreen::-webkit-scrollbar{display:none}
 .ascreen.active{opacity:1;transform:translateX(0)}
 .ascreen.prev{opacity:0;transform:translateX(-40px)}
-#s0{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 32px 44px;background:linear-gradient(180deg,#050C18 0%,var(--surface) 100%);text-align:center;min-height:100%}
+
+/* Screen 0 Onboarding */
+#s0{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 32px 44px;background:linear-gradient(180deg,#0A0A10 0%,var(--surface) 100%);text-align:center;min-height:100%}
 .orb-wrap{position:relative;margin-bottom:28px}
-.pring{position:absolute;inset:-18px;border-radius:50%;border:2px solid var(--cyan);opacity:0;animation:pring 2.6s ease-out infinite}
+.pring{position:absolute;inset:-18px;border-radius:50%;border:2px solid #CC0000;opacity:0;animation:pring 2.6s ease-out infinite}
 .pring:nth-child(2){animation-delay:.9s}.pring:nth-child(3){animation-delay:1.8s}
 @keyframes pring{0%{transform:scale(.75);opacity:.65}100%{transform:scale(2);opacity:0}}
-.orb{width:88px;height:88px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:28px;display:flex;align-items:center;justify-content:center;font-size:42px;position:relative;z-index:1;box-shadow:0 0 48px rgba(0,212,255,.45);animation:float 3.2s ease-in-out infinite}
+.orb{width:88px;height:88px;background:linear-gradient(135deg,#CC0000,#8B0000);border-radius:28px;display:flex;align-items:center;justify-content:center;font-size:42px;position:relative;z-index:1;box-shadow:0 0 48px rgba(204,0,0,.5);animation:float 3.2s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.appname{font-size:38px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1.5px;margin-bottom:8px}
+.appname{font-size:38px;font-weight:900;background:linear-gradient(135deg,#CC0000,#FFB800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1.5px;margin-bottom:8px}
 .tagline{font-size:14px;color:var(--dim);line-height:1.55;max-width:250px;margin-bottom:28px}
-.unibadge{display:flex;align-items:center;gap:10px;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.18);border-radius:16px;padding:10px 16px;margin-bottom:36px;font-size:13px;color:var(--cyan)}
-.ulogo{width:28px;height:28px;background:var(--cyan);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#000;font-weight:900;font-size:12px}
-.btnp{width:100%;padding:16px;background:linear-gradient(135deg,var(--cyan),var(--purple));border:none;border-radius:16px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;animation:bpulse 2.2s ease-in-out infinite;transition:transform .1s}
+/* Waikato badge on onboarding */
+.unibadge{display:flex;align-items:center;gap:12px;background:rgba(204,0,0,.07);border:1px solid rgba(204,0,0,.2);border-radius:16px;padding:12px 16px;margin-bottom:36px}
+.ubadgetx{text-align:left}
+.ubadgetx .ub1{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.ubadgetx .ub2{font-size:14px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.ubadgetx .ub3{font-size:10px;font-style:italic;color:var(--dim)}
+.btnp{width:100%;padding:16px;background:linear-gradient(135deg,#CC0000,#8B0000);border:none;border-radius:16px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;animation:bpulse 2.2s ease-in-out infinite;transition:transform .1s}
 .btnp:active{transform:scale(.97)}
-@keyframes bpulse{0%,100%{box-shadow:0 4px 20px rgba(0,212,255,.3)}50%{box-shadow:0 4px 44px rgba(0,212,255,.6),0 4px 24px rgba(123,47,255,.5)}}
+@keyframes bpulse{0%,100%{box-shadow:0 4px 20px rgba(204,0,0,.35)}50%{box-shadow:0 4px 44px rgba(204,0,0,.6),0 4px 24px rgba(139,0,0,.5)}}
 .btns{background:transparent;border:1px solid var(--border);border-radius:12px;color:var(--dim);padding:11px;font-size:13px;cursor:pointer;width:100%;margin-top:11px;transition:all .2s}
-.btns:hover{border-color:var(--cyan);color:var(--cyan)}
+.btns:hover{border-color:#CC0000;color:#CC0000}
+
+/* Screen 1 Check-in */
 #s1{padding:50px 22px 36px;display:flex;flex-direction:column;gap:16px;min-height:100%}
 .sgreet{font-size:24px;font-weight:800}
 .ssub{font-size:13px;color:var(--dim);margin-top:2px}
@@ -50,64 +80,70 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .clbl{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.9px;margin-bottom:14px}
 .memojis{display:flex;justify-content:space-between;margin-bottom:12px}
 .memoji{font-size:24px;opacity:.3;transition:all .22s;cursor:pointer;line-height:1}
-.memoji.on{opacity:1;transform:scale(1.35);filter:drop-shadow(0 0 8px rgba(0,212,255,.6))}
+.memoji.on{opacity:1;transform:scale(1.35);filter:drop-shadow(0 0 8px rgba(204,0,0,.6))}
 input[type=range]{-webkit-appearance:none;width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:3px;outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:50%;cursor:pointer;box-shadow:0 0 12px rgba(0,212,255,.55);transition:transform .1s}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;background:linear-gradient(135deg,#CC0000,#8B0000);border-radius:50%;cursor:pointer;box-shadow:0 0 12px rgba(204,0,0,.5);transition:transform .1s}
 input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
 .srow{display:flex;flex-direction:column;gap:13px}
 .sitem{display:flex;flex-direction:column;gap:6px}
 .shdr{display:flex;justify-content:space-between;align-items:center}
 .slbl{font-size:13px;color:var(--dim)}
-.sval{font-size:13px;font-weight:700;color:var(--cyan)}
+.sval{font-size:13px;font-weight:700;color:#CC0000}
 textarea.tinp{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:14px;color:var(--text);font-size:14px;width:100%;resize:none;font-family:inherit;transition:border-color .2s;outline:none;line-height:1.5}
-textarea.tinp:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,212,255,.1)}
+textarea.tinp:focus{border-color:#CC0000;box-shadow:0 0 0 3px rgba(204,0,0,.12)}
 textarea.tinp::placeholder{color:var(--dim)}
-.subbtn{width:100%;padding:16px;background:linear-gradient(135deg,var(--cyan),var(--purple));border:none;border-radius:16px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .1s}
+.subbtn{width:100%;padding:16px;background:linear-gradient(135deg,#CC0000,#8B0000);border:none;border-radius:16px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .1s}
 .subbtn:active{transform:scale(.97)}
 .pdot{width:8px;height:8px;background:#fff;border-radius:50%;animation:pdot 1.3s ease-in-out infinite}
 @keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+
+/* Screen 2 Results */
 #s2{padding:50px 22px 36px;display:flex;flex-direction:column;gap:16px;min-height:100%}
 .rhdr{text-align:center;padding:12px 0}
-.pts{font-size:68px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.pts{font-size:68px;font-weight:900;background:linear-gradient(135deg,#CC0000,#FFB800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
 .ptslbl{font-size:13px;color:var(--dim);margin-top:4px}
-.streak{display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,53,.13);border:1px solid rgba(255,107,53,.28);border-radius:20px;padding:6px 14px;font-size:14px;font-weight:700;color:var(--orange);margin-top:10px}
+.streak{display:inline-flex;align-items:center;gap:6px;background:rgba(255,184,0,.13);border:1px solid rgba(255,184,0,.28);border-radius:20px;padding:6px 14px;font-size:14px;font-weight:700;color:#FFB800;margin-top:10px}
 .progsec{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:18px}
 .proghdr{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px;font-weight:600}
 .progbg{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
-.progfill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:4px;width:0%;transition:width 1.6s cubic-bezier(.4,0,.2,1)}
+.progfill{height:100%;background:linear-gradient(90deg,#CC0000,#FFB800);border-radius:4px;width:0%;transition:width 1.6s cubic-bezier(.4,0,.2,1)}
 .progsub{font-size:12px;color:var(--dim);margin-top:8px}
 .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .rcard{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
-.rcard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--cyan),var(--purple));opacity:0;transition:opacity .2s}
+.rcard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#CC0000,#8B0000);opacity:0;transition:opacity .2s}
 .rcard:active{transform:scale(.94)}
-.rcard:hover::after{opacity:.06}
+.rcard:hover::after{opacity:.07}
 .rico{font-size:28px;margin-bottom:7px}
 .rname{font-size:12px;font-weight:700;margin-bottom:4px;position:relative;z-index:1}
-.rpts{font-size:11px;font-weight:700;color:var(--cyan);position:relative;z-index:1}
+.rpts{font-size:11px;font-weight:700;color:#CC0000;position:relative;z-index:1}
 .rcard.lkd .rico{filter:grayscale(1);opacity:.35}
 .rcard.lkd .rname,.rcard.lkd .rpts{color:var(--dim)}
 .bkbtn{background:transparent;border:1px solid var(--border);border-radius:13px;color:var(--dim);padding:13px;font-size:14px;cursor:pointer;width:100%;transition:all .2s}
-.bkbtn:hover{border-color:var(--cyan);color:var(--cyan)}
-#dv{min-height:calc(100vh - 61px);padding:28px 28px 48px;background:radial-gradient(ellipse 50% 35% at 80% 15%,rgba(123,47,255,.07) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 15% 80%,rgba(0,212,255,.05) 0%,transparent 60%),var(--bg)}
+.bkbtn:hover{border-color:#CC0000;color:#CC0000}
+
+/* ── DASHBOARD ── */
+#dv{min-height:calc(100vh - 61px);padding:28px 28px 48px;background:radial-gradient(ellipse 50% 35% at 80% 15%,rgba(139,0,0,.07) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 15% 80%,rgba(255,184,0,.04) 0%,transparent 60%),var(--bg)}
 .dhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:14px}
-.dbrand{display:flex;align-items:center;gap:14px}
-.dlogo{width:48px;height:48px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 0 32px rgba(0,212,255,.25)}
-.dtitle h1{font-size:23px;font-weight:800;letter-spacing:-.5px}
-.dtitle p{font-size:13px;color:var(--dim);margin-top:3px}
-.livebadge{display:flex;align-items:center;gap:7px;background:rgba(0,224,150,.09);border:1px solid rgba(0,224,150,.22);border-radius:20px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--green)}
+.dbrand{display:flex;align-items:center;gap:16px}
+.ddiv{width:1px;height:48px;background:rgba(255,255,255,.1);margin:0 4px}
+.dapptx h1{font-size:21px;font-weight:800;letter-spacing:-.5px}
+.dapptx p{font-size:12px;color:var(--dim);margin-top:3px}
+.livebadge{display:flex;align-items:center;gap:7px;background:rgba(0,200,117,.09);border:1px solid rgba(0,200,117,.22);border-radius:20px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--green)}
 .ldot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:ldot 1.6s ease-in-out infinite}
 @keyframes ldot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+
+/* Stats */
 .srow2{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
 .scard{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s;cursor:default}
-.scard:hover{border-color:rgba(0,212,255,.2);transform:translateY(-2px)}
-.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));opacity:0;transition:opacity .2s}
+.scard:hover{border-color:rgba(204,0,0,.25);transform:translateY(-2px)}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#CC0000,#FFB800);opacity:0;transition:opacity .2s}
 .scard:hover::before{opacity:1}
 .sico{font-size:20px;margin-bottom:11px}
 .sval2{font-size:34px;font-weight:900;letter-spacing:-1px;line-height:1}
 .slb{font-size:12px;color:var(--dim);margin-top:4px}
 .schg{font-size:11px;font-weight:600;margin-top:8px}
-.schg.up{color:var(--green)}.schg.dn{color:var(--red)}.schg.al{color:var(--orange)}
-.abadge{display:inline-flex;align-items:center;justify-content:center;background:var(--red);border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:6px;animation:abounce 1.1s ease-in-out infinite}
+.schg.up{color:var(--green)}.schg.dn{color:#FF4560}.schg.al{color:#FFB800}
+.abadge{display:inline-flex;align-items:center;justify-content:center;background:#FF4560;border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700;margin-left:6px;animation:abounce 1.1s ease-in-out infinite}
 @keyframes abounce{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 .dgrid{display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:start}
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:22px;margin-bottom:20px}
@@ -119,38 +155,38 @@ textarea.tinp::placeholder{color:var(--dim)}
 .fcrd{background:var(--surface2);border-radius:15px;padding:15px;border:1px solid var(--border);position:relative;overflow:hidden;transition:transform .2s;cursor:default}
 .fcrd:hover{transform:translateY(-2px)}
 .fcrd::before{content:'';position:absolute;inset:0;opacity:.06}
-.fcrd.gr::before{background:var(--green)}.fcrd.ye::before{background:var(--yellow)}.fcrd.or::before{background:var(--orange)}.fcrd.re::before{background:var(--red)}
+.fcrd.gr::before{background:var(--green)}.fcrd.ye::before{background:#FFB800}.fcrd.or::before{background:#CC0000}.fcrd.re::before{background:#FF4560}
 .ftop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px}
 .fname{font-size:13px;font-weight:700}
 .ftrend{font-size:17px}
 .fbar{height:4px;border-radius:2px;background:rgba(255,255,255,.07);margin-bottom:8px;overflow:hidden}
 .ffill{height:100%;border-radius:2px}
-.fcrd.gr .ffill{background:var(--green)}.fcrd.ye .ffill{background:var(--yellow)}.fcrd.or .ffill{background:var(--orange)}.fcrd.re .ffill{background:var(--red)}
+.fcrd.gr .ffill{background:var(--green)}.fcrd.ye .ffill{background:#FFB800}.fcrd.or .ffill{background:#CC0000}.fcrd.re .ffill{background:#FF4560}
 .fstats{display:flex;justify-content:space-between;font-size:11px;color:var(--dim)}
 #trendChart{display:block;border-radius:8px}
 .clegend{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap}
 .litem{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim)}
 .lline{width:24px;height:3px;border-radius:2px}
-.aipanel{background:linear-gradient(135deg,rgba(0,212,255,.04),rgba(123,47,255,.06));border:1px solid rgba(0,212,255,.18);border-radius:22px;padding:22px;margin-bottom:16px}
+.aipanel{background:linear-gradient(135deg,rgba(204,0,0,.05),rgba(255,184,0,.04));border:1px solid rgba(204,0,0,.2);border-radius:22px;padding:22px;margin-bottom:16px}
 .aihdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.aiav{width:38px;height:38px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.aiav{width:38px;height:38px;background:linear-gradient(135deg,#CC0000,#8B0000);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .ainame{font-size:14px;font-weight:700}
 .aisub{font-size:11px;color:var(--dim)}
-.aimsg{font-size:13.5px;line-height:1.7;color:rgba(232,240,254,.82)}
-.aihi{color:var(--cyan);font-weight:700}
-.aihi.r{color:var(--red)}
-.alpanel{background:rgba(255,59,92,.055);border:1px solid rgba(255,59,92,.22);border-radius:20px;padding:20px;margin-bottom:16px}
+.aimsg{font-size:13.5px;line-height:1.7;color:rgba(240,240,246,.82)}
+.aihi{color:#CC0000;font-weight:700}
+.aihi.r{color:#FF4560}
+.alpanel{background:rgba(255,69,96,.055);border:1px solid rgba(255,69,96,.22);border-radius:20px;padding:20px;margin-bottom:16px}
 .altop{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
-.aliwrap{width:38px;height:38px;background:rgba(255,59,92,.13);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.albody h4{font-size:14px;font-weight:700;color:var(--red);margin-bottom:4px}
+.aliwrap{width:38px;height:38px;background:rgba(255,69,96,.13);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.albody h4{font-size:14px;font-weight:700;color:#FF4560;margin-bottom:4px}
 .albody p{font-size:13px;color:var(--dim);line-height:1.5}
-.albtn{width:100%;padding:10px;background:rgba(255,59,92,.12);border:1px solid rgba(255,59,92,.28);border-radius:10px;color:var(--red);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
-.albtn:hover{background:rgba(255,59,92,.22)}
+.albtn{width:100%;padding:10px;background:rgba(255,69,96,.12);border:1px solid rgba(255,69,96,.28);border-radius:10px;color:#FF4560;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.albtn:hover{background:rgba(255,69,96,.22)}
 .flist{display:flex;flex-direction:column;gap:10px}
 .fitem{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:11px;align-items:flex-start;transition:border-color .2s}
-.fitem:hover{border-color:rgba(0,212,255,.18)}
+.fitem:hover{border-color:rgba(204,0,0,.22)}
 .fmood{font-size:22px;line-height:1;flex-shrink:0}
-.ftxt{font-size:13px;color:rgba(232,240,254,.78);line-height:1.5}
+.ftxt{font-size:13px;color:rgba(240,240,246,.78);line-height:1.5}
 .fmet{font-size:11px;color:var(--dim);margin-top:4px}
 #ccv{position:fixed;inset:0;pointer-events:none;z-index:999;display:none}
 .hidden{display:none!important}
@@ -159,18 +195,29 @@ textarea.tinp::placeholder{color:var(--dim)}
 </style>
 </head>
 <body>
+<!-- NAV: UniPulse + Waikato branding -->
 <nav class="gnav">
-  <div class="nbrand"><div class="nmark">&#x1F499;</div>UniPulse</div>
+  <div class="nbrand">
+    <div class="wcrest-sm">W</div>
+    <div class="wtx">
+      <span class="wuni">THE UNIVERSITY OF</span>
+      <span class="wname">WAIKATO</span>
+    </div>
+    <div class="ndiv"></div>
+    <div class="npill"><div class="npulse"></div>UniPulse</div>
+  </div>
   <div class="vtoggle">
     <button class="tbtn on" id="btnSV" onclick="showView('s')">&#x1F4F1; Student View</button>
     <button class="tbtn" id="btnDV" onclick="showView('d')">&#x1F3DB; University Dashboard</button>
   </div>
 </nav>
+
 <!-- STUDENT VIEW -->
 <div id="sv">
   <div class="pframe">
     <div class="pnotch"></div>
     <div class="pscreen">
+
       <!-- Screen 0: Onboarding -->
       <div class="ascreen active" id="s0">
         <div class="orb-wrap">
@@ -179,10 +226,18 @@ textarea.tinp::placeholder{color:var(--dim)}
         </div>
         <div class="appname">UniPulse</div>
         <p class="tagline">Check in. Earn rewards.<br>Feel supported.</p>
-        <div class="unibadge"><div class="ulogo">W</div>University of Waikato</div>
+        <div class="unibadge">
+          <div class="wcrest-md">W</div>
+          <div class="ubadgetx">
+            <div class="ub1">THE UNIVERSITY OF</div>
+            <div class="ub2">WAIKATO</div>
+            <div class="ub3">Te Whare W&#x101;nanga o Waikato</div>
+          </div>
+        </div>
         <button class="btnp" onclick="goScreen(1)">Get Started &rarr;</button>
         <button class="btns">Sign in to existing account</button>
       </div>
+
       <!-- Screen 1: Check-in -->
       <div class="ascreen" id="s1">
         <div class="sgreet">Kia ora &#x1F44B;</div>
@@ -223,6 +278,7 @@ textarea.tinp::placeholder{color:var(--dim)}
           <span class="pdot"></span>Submit Check-in
         </button>
       </div>
+
       <!-- Screen 2: Results -->
       <div class="ascreen" id="s2">
         <div class="rhdr">
@@ -236,7 +292,7 @@ textarea.tinp::placeholder{color:var(--dim)}
         <div class="progsec">
           <div class="proghdr">
             <span>Progress to Gym Pass &#x1F3CB;</span>
-            <span style="color:var(--cyan)">75 / 100 pts</span>
+            <span style="color:#CC0000">75 / 100 pts</span>
           </div>
           <div class="progbg"><div class="progfill" id="pbar"></div></div>
           <div class="progsub">25 more points to unlock</div>
@@ -250,52 +306,69 @@ textarea.tinp::placeholder{color:var(--dim)}
         </div>
         <button class="bkbtn" onclick="goScreen(0)" style="margin-top:6px">&larr; Back to Start</button>
       </div>
+
     </div>
   </div>
 </div>
 <!-- UNIVERSITY DASHBOARD -->
 <div id="dv" class="hidden">
+
+  <!-- Header: full Waikato logo treatment + UniPulse -->
   <div class="dhdr">
     <div class="dbrand">
-      <div class="dlogo">&#x1F499;</div>
-      <div class="dtitle"><h1>UniPulse</h1><p>University of Waikato &middot; Student Wellbeing Intelligence</p></div>
+      <div class="wcrest-lg">W</div>
+      <div class="wtx lg">
+        <span class="wuni">THE UNIVERSITY OF</span>
+        <span class="wname">WAIKATO</span>
+        <span class="wmaori">Te Whare W&#x101;nanga o Waikato</span>
+      </div>
+      <div class="ddiv"></div>
+      <div class="dapptx">
+        <h1>UniPulse</h1>
+        <p>Student Wellbeing Intelligence Platform</p>
+      </div>
     </div>
     <div class="livebadge"><div class="ldot"></div>Live &middot; Updated 2 min ago</div>
   </div>
+
+  <!-- Stats row -->
   <div class="srow2">
-    <div class="scard"><div class="sico">&#x1F465;</div><div class="sval2" style="color:var(--cyan)">847</div><div class="slb">Active Students</div><div class="schg up">&#x2191; 12 since yesterday</div></div>
-    <div class="scard"><div class="sico">&#x1F4CA;</div><div class="sval2" style="color:var(--purple)">73%</div><div class="slb">Participation Rate</div><div class="schg up">&#x2191; 5% this week</div></div>
-    <div class="scard"><div class="sico">&#x1F49B;</div><div class="sval2" style="color:var(--yellow)">3.8</div><div class="slb">Avg Mood Score / 5</div><div class="schg dn">&#x2193; 0.2 vs last week</div></div>
-    <div class="scard"><div class="sico">&#x1F514;</div><div class="sval2" style="color:var(--red)">3<span class="abadge">!</span></div><div class="slb">Active Alerts</div><div class="schg al">Requires attention</div></div>
+    <div class="scard"><div class="sico">&#x1F465;</div><div class="sval2" style="color:#CC0000">847</div><div class="slb">Active Students</div><div class="schg up">&#x2191; 12 since yesterday</div></div>
+    <div class="scard"><div class="sico">&#x1F4CA;</div><div class="sval2" style="color:#FFB800">73%</div><div class="slb">Participation Rate</div><div class="schg up">&#x2191; 5% this week</div></div>
+    <div class="scard"><div class="sico">&#x1F49B;</div><div class="sval2" style="color:#FFB800">3.8</div><div class="slb">Avg Mood Score / 5</div><div class="schg dn">&#x2193; 0.2 vs last week</div></div>
+    <div class="scard"><div class="sico">&#x1F514;</div><div class="sval2" style="color:#FF4560">3<span class="abadge">!</span></div><div class="slb">Active Alerts</div><div class="schg al">Requires attention</div></div>
   </div>
+
   <div class="dgrid">
     <div>
-      <!-- Heatmap -->
+      <!-- Faculty Heatmap -->
       <div class="panel">
         <div class="phdr"><div class="ptitle">Faculty Wellbeing Heatmap</div><div class="pmeta">Avg stress &middot; This week</div></div>
         <div class="hgrid">
-          <div class="fcrd or"><div class="ftop"><div class="fname">&#x2699; Engineering</div><div class="ftrend" style="color:var(--orange)">&#x2191;</div></div><div class="fbar"><div class="ffill" style="width:72%"></div></div><div class="fstats"><span>Stress <b>72%</b></span><span>Mood <b>3.1</b></span></div></div>
+          <div class="fcrd or"><div class="ftop"><div class="fname">&#x2699; Engineering</div><div class="ftrend" style="color:#CC0000">&#x2191;</div></div><div class="fbar"><div class="ffill" style="width:72%"></div></div><div class="fstats"><span>Stress <b>72%</b></span><span>Mood <b>3.1</b></span></div></div>
           <div class="fcrd gr"><div class="ftop"><div class="fname">&#x1F52C; Science</div><div class="ftrend" style="color:var(--dim)">&#x2192;</div></div><div class="fbar"><div class="ffill" style="width:45%"></div></div><div class="fstats"><span>Stress <b>45%</b></span><span>Mood <b>4.0</b></span></div></div>
           <div class="fcrd gr"><div class="ftop"><div class="fname">&#x1F3A8; Arts</div><div class="ftrend" style="color:var(--green)">&#x2193;</div></div><div class="fbar"><div class="ffill" style="width:30%"></div></div><div class="fstats"><span>Stress <b>30%</b></span><span>Mood <b>4.3</b></span></div></div>
-          <div class="fcrd ye"><div class="ftop"><div class="fname">&#x1F4BC; Business</div><div class="ftrend" style="color:var(--yellow)">&#x2191;</div></div><div class="fbar"><div class="ffill" style="width:58%"></div></div><div class="fstats"><span>Stress <b>58%</b></span><span>Mood <b>3.5</b></span></div></div>
-          <div class="fcrd re"><div class="ftop"><div class="fname">&#x2696; Law</div><div class="ftrend" style="color:var(--red)">&#x2191;</div></div><div class="fbar"><div class="ffill" style="width:81%"></div></div><div class="fstats"><span>Stress <b>81%</b></span><span>Mood <b>2.8</b></span></div></div>
+          <div class="fcrd ye"><div class="ftop"><div class="fname">&#x1F4BC; Business</div><div class="ftrend" style="color:#FFB800">&#x2191;</div></div><div class="fbar"><div class="ffill" style="width:58%"></div></div><div class="fstats"><span>Stress <b>58%</b></span><span>Mood <b>3.5</b></span></div></div>
+          <div class="fcrd re"><div class="ftop"><div class="fname">&#x2696; Law</div><div class="ftrend" style="color:#FF4560">&#x2191;</div></div><div class="fbar"><div class="ffill" style="width:81%"></div></div><div class="fstats"><span>Stress <b>81%</b></span><span>Mood <b>2.8</b></span></div></div>
           <div class="fcrd gr"><div class="ftop"><div class="fname">&#x1F3E5; Health</div><div class="ftrend" style="color:var(--dim)">&#x2192;</div></div><div class="fbar"><div class="ffill" style="width:38%"></div></div><div class="fstats"><span>Stress <b>38%</b></span><span>Mood <b>4.1</b></span></div></div>
         </div>
       </div>
+
       <!-- Trend Chart -->
       <div class="panel">
         <div class="phdr">
           <div class="ptitle">4-Week Trend Analysis</div>
-          <div class="pmeta"><span style="background:rgba(255,59,92,.13);color:var(--red);padding:2px 9px;border-radius:5px;font-size:11px;font-weight:600">&#x1F4C5; Exam Period: Wk 3&ndash;4</span></div>
+          <div class="pmeta"><span style="background:rgba(255,69,96,.12);color:#FF4560;padding:2px 9px;border-radius:5px;font-size:11px;font-weight:600">&#x1F4C5; Exam Period: Wk 3&ndash;4</span></div>
         </div>
         <canvas id="trendChart"></canvas>
         <div class="clegend">
-          <div class="litem"><div class="lline" style="background:var(--cyan)"></div>Mood Score</div>
-          <div class="litem"><div class="lline" style="background:var(--purple)"></div>Stress Level</div>
-          <div class="litem"><div class="lline" style="background:rgba(255,59,92,.45);border:1px dashed var(--red)"></div>Exam Period</div>
+          <div class="litem"><div class="lline" style="background:#CC0000"></div>Mood Score</div>
+          <div class="litem"><div class="lline" style="background:#FFB800"></div>Stress Level</div>
+          <div class="litem"><div class="lline" style="background:rgba(255,69,96,.45);border:1px dashed #FF4560"></div>Exam Period</div>
         </div>
       </div>
     </div>
+
     <div>
       <!-- AI Insights -->
       <div class="aipanel">
@@ -309,6 +382,7 @@ textarea.tinp::placeholder{color:var(--dim)}
           Law faculty stress indicators are at a <span class="aihi r">semester high</span>. Consider scheduling a drop-in counselling session this week before it escalates further.
         </div>
       </div>
+
       <!-- Alert -->
       <div class="alpanel">
         <div class="altop">
@@ -318,10 +392,11 @@ textarea.tinp::placeholder{color:var(--dim)}
             <p>34 students flagged with elevated stress indicators over the past 48 hours. Correlation with Friday deadline confirmed.</p>
           </div>
         </div>
-        <button class="albtn" id="alertBtn" onclick="this.innerHTML='&#x2713; Resources Pushed Successfully';this.style.color='var(--green)';this.style.borderColor='rgba(0,224,150,.35)'">
+        <button class="albtn" id="alertBtn" onclick="this.innerHTML='&#x2713; Resources Pushed Successfully';this.style.color='var(--green)';this.style.borderColor='rgba(0,200,117,.35)'">
           &rarr; Push Wellness Resources Now
         </button>
       </div>
+
       <!-- Feed -->
       <div class="panel">
         <div class="phdr"><div class="ptitle">Anonymous Check-in Feed</div><div class="pmeta">Live &middot; Anonymised</div></div>
@@ -336,6 +411,7 @@ textarea.tinp::placeholder{color:var(--dim)}
     </div>
   </div>
 </div>
+
 <canvas id="ccv"></canvas>
 <script>
 function showView(v){
@@ -390,7 +466,8 @@ function tapR(c){c.style.transform='scale(.91)';setTimeout(function(){c.style.tr
 function spawnConfetti(){
   var cv=document.getElementById('ccv'),ctx=cv.getContext('2d');
   cv.style.display='block';cv.width=innerWidth;cv.height=innerHeight;
-  var cols=['#00D4FF','#7B2FFF','#00E096','#FFD60A','#FF6B35','#FF3B5C','#ffffff'];
+  /* Waikato palette confetti */
+  var cols=['#CC0000','#FFB800','#00C875','#FFFFFF','#FF4560','#8B0000','#FFD700'];
   var ps=Array.from({length:140},function(){return{
     x:Math.random()*innerWidth,y:-20-Math.random()*80,
     w:Math.random()*10+4,h:Math.random()*5+3,
@@ -426,11 +503,13 @@ function drawChart(){
   var cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
   function xp(i){return pad.l+(i/(n-1))*cw;}
   function yp(v){return pad.t+ch-(v/5)*ch;}
-  ctx.fillStyle='rgba(255,59,92,.07)';
+  /* Exam period shading */
+  ctx.fillStyle='rgba(255,69,96,.07)';
   ctx.fillRect(xp(14),pad.t,xp(27)-xp(14),ch);
-  ctx.save();ctx.strokeStyle='rgba(255,59,92,.25)';ctx.setLineDash([4,4]);ctx.lineWidth=1;
+  ctx.save();ctx.strokeStyle='rgba(255,69,96,.25)';ctx.setLineDash([4,4]);ctx.lineWidth=1;
   ctx.beginPath();ctx.moveTo(xp(14),pad.t);ctx.lineTo(xp(14),pad.t+ch);ctx.stroke();
   ctx.restore();
+  /* Grid */
   [1,2,3,4,5].forEach(function(v){
     var y=yp(v);
     ctx.strokeStyle='rgba(255,255,255,.045)';ctx.lineWidth=1;
@@ -458,8 +537,9 @@ function drawChart(){
       ctx.fillStyle=stroke;ctx.shadowColor=stroke;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
     });
   }
-  drawLine(stress,'#7B2FFF','rgba(123,47,255,.22)');
-  drawLine(mood,'#00D4FF','rgba(0,212,255,.22)');
+  /* Waikato Red for mood, Gold for stress */
+  drawLine(stress,'#FFB800','rgba(255,184,0,.2)');
+  drawLine(mood,'#CC0000','rgba(204,0,0,.2)');
 }
 window.addEventListener('resize',function(){
   if(!document.getElementById('dv').classList.contains('hidden'))drawChart();
