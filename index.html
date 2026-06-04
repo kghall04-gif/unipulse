@@ -13,21 +13,77 @@
   --text:#E8F0FE;--dim:#8899B4;--border:rgba(255,255,255,0.07);
 }
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
-.gnav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;backdrop-filter:blur(20px)}
+
+/* ── NAV ── */
+.gnav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;backdrop-filter:blur(20px);gap:12px;flex-wrap:wrap}
 .nbrand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;letter-spacing:-.5px}
 .nmark{width:32px;height:32px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 16px rgba(0,212,255,.35)}
 .vtoggle{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px}
 .tbtn{padding:8px 18px;border-radius:9px;border:none;background:transparent;color:var(--dim);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
 .tbtn.on{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-weight:700}
-#sv{display:flex;flex-direction:column;align-items:center;padding:36px 20px 60px;min-height:calc(100vh - 61px);background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,212,255,.07) 0%,transparent 70%),var(--bg)}
-.pframe{width:390px;height:800px;background:#000;border-radius:54px;border:8px solid #1C2333;box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 60px rgba(0,212,255,.1),0 80px 120px rgba(0,0,0,.9);position:relative;overflow:hidden}
-.pnotch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:32px;background:#000;border-radius:0 0 22px 22px;z-index:10}
+
+/* ── DEMO BUTTON ── */
+.demo-btn{position:fixed;bottom:22px;right:22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:20px;color:rgba(255,255,255,.4);font-size:12px;font-weight:600;padding:8px 16px;cursor:pointer;z-index:300;transition:all .2s;backdrop-filter:blur(10px);letter-spacing:.3px}
+.demo-btn:hover{background:rgba(0,212,255,.12);color:var(--cyan);border-color:rgba(0,212,255,.3)}
+
+/* ── STUDENT VIEW ── */
+#sv{display:flex;flex-direction:column;align-items:center;padding:32px 20px 60px;min-height:calc(100vh - 61px);background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,212,255,.07) 0%,transparent 70%),var(--bg)}
+
+/* ── iPHONE 15 PRO FRAME ── */
+.iphone-outer{
+  position:relative;width:393px;
+  background:linear-gradient(158deg,#4A4A4C 0%,#2C2C2E 30%,#1C1C1E 60%,#2C2C2E 85%,#3A3A3C 100%);
+  border-radius:56px;padding:13px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.14),
+    0 0 0 2.5px #3A3A3C,
+    0 0 0 4px rgba(28,28,30,.9),
+    0 70px 140px rgba(0,0,0,.9),
+    0 0 90px rgba(0,212,255,.07),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+.iphone-mute{position:absolute;left:-3.5px;top:62px;width:3.5px;height:26px;background:linear-gradient(180deg,#4A4A4C,#3A3A3C);border-radius:2px 0 0 2px}
+.iphone-vol-up{position:absolute;left:-3.5px;top:104px;width:3.5px;height:36px;background:linear-gradient(180deg,#4A4A4C,#3A3A3C);border-radius:2px 0 0 2px}
+.iphone-vol-dn{position:absolute;left:-3.5px;top:156px;width:3.5px;height:36px;background:linear-gradient(180deg,#4A4A4C,#3A3A3C);border-radius:2px 0 0 2px}
+.iphone-pwr{position:absolute;right:-3.5px;top:175px;width:3.5px;height:80px;background:linear-gradient(180deg,#4A4A4C,#3A3A3C);border-radius:0 2px 2px 0}
+
+/* Display */
+.iphone-display{width:100%;height:828px;background:#000;border-radius:44px;overflow:hidden;position:relative}
+
+/* Status bar */
+.status-bar{position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 10px;z-index:20;pointer-events:none}
+.status-time{font-size:15px;font-weight:600;color:var(--text);letter-spacing:-.3px}
+.status-icons{display:flex;align-items:center;gap:6px}
+.sig-bars{display:flex;align-items:flex-end;gap:1.5px}
+.sig-bar{width:3px;background:var(--text);border-radius:1px}
+.sb1{height:4px}.sb2{height:7px}.sb3{height:10px}.sb4{height:13px;opacity:.35}
+.batt{width:25px;height:12px;border:1.5px solid rgba(255,255,255,.65);border-radius:3.5px;position:relative;display:flex;align-items:center;padding:1.5px}
+.batt::after{content:'';position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:2.5px;height:6px;background:rgba(255,255,255,.4);border-radius:0 1.5px 1.5px 0}
+.batt-fill{height:100%;width:78%;background:var(--green);border-radius:1.5px}
+
+/* Dynamic Island */
+.dynamic-island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#000;border-radius:20px;z-index:25}
+
+/* iOS Push Notification */
+.push-notif{position:absolute;top:-130px;left:12px;right:12px;background:rgba(22,22,32,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:18px;padding:14px;display:flex;align-items:flex-start;gap:10px;transition:top .42s cubic-bezier(.34,1.1,.64,1);z-index:35;box-shadow:0 10px 40px rgba(0,0,0,.65);cursor:pointer}
+.push-notif.show{top:62px}
+.push-ico{width:36px;height:36px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.push-app{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:3px}
+.push-msg{font-size:12px;color:var(--text);line-height:1.45}
+.push-time{font-size:10px;color:var(--dim);margin-top:5px}
+
+/* Home indicator */
+.home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:rgba(255,255,255,.22);border-radius:3px;z-index:20}
+
+/* Pscreen / ascreen */
 .pscreen{position:absolute;inset:0;background:var(--surface);overflow:hidden}
 .ascreen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;opacity:0;transform:translateX(105%);transition:opacity .38s cubic-bezier(.4,0,.2,1),transform .38s cubic-bezier(.4,0,.2,1)}
 .ascreen::-webkit-scrollbar{display:none}
 .ascreen.active{opacity:1;transform:translateX(0)}
 .ascreen.prev{opacity:0;transform:translateX(-40px)}
-#s0{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 32px 44px;background:linear-gradient(180deg,#050C18 0%,var(--surface) 100%);text-align:center;min-height:100%}
+
+/* Screen 0 Onboarding */
+#s0{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:68px 32px 44px;background:linear-gradient(180deg,#050C18 0%,var(--surface) 100%);text-align:center;min-height:100%}
 .orb-wrap{position:relative;margin-bottom:28px}
 .pring{position:absolute;inset:-18px;border-radius:50%;border:2px solid var(--cyan);opacity:0;animation:pring 2.6s ease-out infinite}
 .pring:nth-child(2){animation-delay:.9s}.pring:nth-child(3){animation-delay:1.8s}
@@ -43,7 +99,9 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 @keyframes bpulse{0%,100%{box-shadow:0 4px 20px rgba(0,212,255,.3)}50%{box-shadow:0 4px 44px rgba(0,212,255,.6),0 4px 24px rgba(123,47,255,.5)}}
 .btns{background:transparent;border:1px solid var(--border);border-radius:12px;color:var(--dim);padding:11px;font-size:13px;cursor:pointer;width:100%;margin-top:11px;transition:all .2s}
 .btns:hover{border-color:var(--cyan);color:var(--cyan)}
-#s1{padding:50px 22px 36px;display:flex;flex-direction:column;gap:16px;min-height:100%}
+
+/* Screen 1 Check-in */
+#s1{padding:68px 22px 36px;display:flex;flex-direction:column;gap:16px;min-height:100%}
 .sgreet{font-size:24px;font-weight:800}
 .ssub{font-size:13px;color:var(--dim);margin-top:2px}
 .ccard{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:18px}
@@ -66,9 +124,11 @@ textarea.tinp::placeholder{color:var(--dim)}
 .subbtn:active{transform:scale(.97)}
 .pdot{width:8px;height:8px;background:#fff;border-radius:50%;animation:pdot 1.3s ease-in-out infinite}
 @keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
-#s2{padding:50px 22px 36px;display:flex;flex-direction:column;gap:16px;min-height:100%}
-.rhdr{text-align:center;padding:12px 0}
-.pts{font-size:68px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+
+/* Screen 2 Results */
+#s2{padding:68px 22px 60px;display:flex;flex-direction:column;gap:14px;min-height:100%;position:relative}
+.rhdr{text-align:center;padding:8px 0 4px}
+.pts{font-size:64px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
 .ptslbl{font-size:13px;color:var(--dim);margin-top:4px}
 .streak{display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,53,.13);border:1px solid rgba(255,107,53,.28);border-radius:20px;padding:6px 14px;font-size:14px;font-weight:700;color:var(--orange);margin-top:10px}
 .progsec{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:18px}
@@ -76,6 +136,23 @@ textarea.tinp::placeholder{color:var(--dim)}
 .progbg{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
 .progfill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:4px;width:0%;transition:width 1.6s cubic-bezier(.4,0,.2,1)}
 .progsub{font-size:12px;color:var(--dim);margin-top:8px}
+
+/* Streak calendar */
+.cal-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:16px}
+.cal-lbl{font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.9px;margin-bottom:10px}
+.cal-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.cal-day{aspect-ratio:1;border-radius:3px;background:rgba(255,255,255,.05);transition:transform .15s}
+.cal-day:hover{transform:scale(1.3)}
+
+/* Reward popup (inside iphone-display) */
+.reward-popup{position:absolute;bottom:-170px;left:14px;right:14px;background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,140,0,.08));border:1px solid rgba(255,215,0,.35);border-radius:20px;padding:18px 16px;text-align:center;z-index:40;box-shadow:0 0 30px rgba(255,200,0,.15)}
+.reward-popup{transition:bottom .55s cubic-bezier(.34,1.5,.64,1)}
+.reward-popup.show{bottom:18px;animation:goldGlow 2s ease-in-out infinite}
+@keyframes goldGlow{0%,100%{box-shadow:0 0 20px rgba(255,200,0,.15)}50%{box-shadow:0 0 44px rgba(255,200,0,.4)}}
+.rp-emoji{font-size:28px;margin-bottom:6px}
+.rp-title{font-size:16px;font-weight:800;background:linear-gradient(135deg,#FFD700,#FF9500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.rp-sub{font-size:12px;color:var(--dim)}
+
 .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .rcard{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
 .rcard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--cyan),var(--purple));opacity:0;transition:opacity .2s}
@@ -88,12 +165,20 @@ textarea.tinp::placeholder{color:var(--dim)}
 .rcard.lkd .rname,.rcard.lkd .rpts{color:var(--dim)}
 .bkbtn{background:transparent;border:1px solid var(--border);border-radius:13px;color:var(--dim);padding:13px;font-size:14px;cursor:pointer;width:100%;transition:all .2s}
 .bkbtn:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* ── DASHBOARD ── */
 #dv{min-height:calc(100vh - 61px);padding:28px 28px 48px;background:radial-gradient(ellipse 50% 35% at 80% 15%,rgba(123,47,255,.07) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 15% 80%,rgba(0,212,255,.05) 0%,transparent 60%),var(--bg)}
 .dhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:14px}
 .dbrand{display:flex;align-items:center;gap:14px}
 .dlogo{width:48px;height:48px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 0 32px rgba(0,212,255,.25)}
 .dtitle h1{font-size:23px;font-weight:800;letter-spacing:-.5px}
 .dtitle p{font-size:13px;color:var(--dim);margin-top:3px}
+.dhdr-right{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+/* Student ticker */
+.ticker-wrap{font-size:12px;color:var(--dim);display:flex;align-items:baseline;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:8px 14px}
+.ticker-num{font-size:20px;font-weight:900;color:var(--cyan);font-variant-numeric:tabular-nums;display:inline-block}
+@keyframes numFlash{0%{color:var(--cyan);transform:scale(1)}30%{color:var(--green);transform:scale(1.12)}100%{color:var(--cyan);transform:scale(1)}}
+.ticker-num.flash{animation:numFlash .4s ease}
 .livebadge{display:flex;align-items:center;gap:7px;background:rgba(0,224,150,.09);border:1px solid rgba(0,224,150,.22);border-radius:20px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--green)}
 .ldot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:ldot 1.6s ease-in-out infinite}
 @keyframes ldot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
@@ -131,14 +216,20 @@ textarea.tinp::placeholder{color:var(--dim)}
 .clegend{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap}
 .litem{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim)}
 .lline{width:24px;height:3px;border-radius:2px}
+/* AI panel */
 .aipanel{background:linear-gradient(135deg,rgba(0,212,255,.04),rgba(123,47,255,.06));border:1px solid rgba(0,212,255,.18);border-radius:22px;padding:22px;margin-bottom:16px}
 .aihdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .aiav{width:38px;height:38px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .ainame{font-size:14px;font-weight:700}
-.aisub{font-size:11px;color:var(--dim)}
-.aimsg{font-size:13.5px;line-height:1.7;color:rgba(232,240,254,.82)}
+.aisub{font-size:11px;color:var(--dim);display:flex;align-items:center;gap:5px}
+.ai-dot{width:7px;height:7px;background:var(--cyan);border-radius:50%;display:inline-block;animation:aidot 1.2s ease-in-out infinite;flex-shrink:0}
+@keyframes aidot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.aimsg{font-size:13.5px;line-height:1.72;color:rgba(232,240,254,.82);min-height:90px}
 .aihi{color:var(--cyan);font-weight:700}
 .aihi.r{color:var(--red)}
+.ai-cursor{display:inline-block;width:2px;height:14px;background:var(--cyan);vertical-align:text-bottom;margin-left:1px;animation:cur .7s step-end infinite}
+@keyframes cur{0%,100%{opacity:1}50%{opacity:0}}
+/* Alert + feed */
 .alpanel{background:rgba(255,59,92,.055);border:1px solid rgba(255,59,92,.22);border-radius:20px;padding:20px;margin-bottom:16px}
 .altop{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
 .aliwrap{width:38px;height:38px;background:rgba(255,59,92,.13);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
@@ -152,13 +243,25 @@ textarea.tinp::placeholder{color:var(--dim)}
 .fmood{font-size:22px;line-height:1;flex-shrink:0}
 .ftxt{font-size:13px;color:rgba(232,240,254,.78);line-height:1.5}
 .fmet{font-size:11px;color:var(--dim);margin-top:4px}
+/* ── LIVE ALERT (fixed overlay) ── */
+.live-alert{position:fixed;top:80px;right:-360px;width:310px;background:var(--surface);border:1px solid rgba(255,59,92,.28);border-left:4px solid var(--red);border-radius:16px;padding:16px;z-index:500;transition:right .45s cubic-bezier(.34,1.1,.64,1)}
+.live-alert.show{right:24px;animation:laPulse 2.5s ease-in-out infinite}
+@keyframes laPulse{0%,100%{box-shadow:0 4px 24px rgba(255,59,92,.1)}50%{box-shadow:0 4px 36px rgba(255,59,92,.28)}}
+.la-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}
+.la-title{font-size:14px;font-weight:700;color:var(--red);line-height:1.3}
+.la-x{background:none;border:none;color:var(--dim);font-size:18px;cursor:pointer;line-height:1;flex-shrink:0;padding:0 2px}
+.la-x:hover{color:var(--text)}
+.la-body{font-size:13px;color:var(--dim);line-height:1.5}
+.la-foot{font-size:11px;color:var(--dim);margin-top:8px;opacity:.6}
+/* Canvas + misc */
 #ccv{position:fixed;inset:0;pointer-events:none;z-index:999;display:none}
 .hidden{display:none!important}
 @media(max-width:1100px){.dgrid{grid-template-columns:1fr}.srow2{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:460px){#sv{padding:20px 12px 40px}.pframe{width:100%;max-width:390px}#dv{padding:16px 14px}}
+@media(max-width:500px){#sv{padding:20px 12px 40px}.iphone-outer{width:100%;max-width:393px}#dv{padding:16px 14px}}
 </style>
 </head>
 <body>
+<!-- NAV -->
 <nav class="gnav">
   <div class="nbrand"><div class="nmark">&#x1F499;</div>UniPulse</div>
   <div class="vtoggle">
@@ -166,93 +269,153 @@ textarea.tinp::placeholder{color:var(--dim)}
     <button class="tbtn" id="btnDV" onclick="showView('d')">&#x1F3DB; University Dashboard</button>
   </div>
 </nav>
+
 <!-- STUDENT VIEW -->
 <div id="sv">
-  <div class="pframe">
-    <div class="pnotch"></div>
-    <div class="pscreen">
-      <!-- Screen 0: Onboarding -->
-      <div class="ascreen active" id="s0">
-        <div class="orb-wrap">
-          <div class="pring"></div><div class="pring"></div><div class="pring"></div>
-          <div class="orb">&#x1F499;</div>
-        </div>
-        <div class="appname">UniPulse</div>
-        <p class="tagline">Check in. Earn rewards.<br>Feel supported.</p>
-        <div class="unibadge"><div class="ulogo">W</div>University of Waikato</div>
-        <button class="btnp" onclick="goScreen(1)">Get Started &rarr;</button>
-        <button class="btns">Sign in to existing account</button>
-      </div>
-      <!-- Screen 1: Check-in -->
-      <div class="ascreen" id="s1">
-        <div class="sgreet">Kia ora &#x1F44B;</div>
-        <p class="ssub">Monday, 2 June &middot; Daily check-in</p>
-        <div class="ccard">
-          <div class="clbl">How are you feeling?</div>
-          <div class="memojis">
-            <span class="memoji" data-v="1">&#x1F622;</span>
-            <span class="memoji" data-v="2">&#x1F615;</span>
-            <span class="memoji on" data-v="3">&#x1F610;</span>
-            <span class="memoji" data-v="4">&#x1F642;</span>
-            <span class="memoji" data-v="5">&#x1F604;</span>
+  <div class="iphone-outer">
+    <!-- Hardware buttons -->
+    <div class="iphone-mute"></div>
+    <div class="iphone-vol-up"></div>
+    <div class="iphone-vol-dn"></div>
+    <div class="iphone-pwr"></div>
+
+    <div class="iphone-display">
+      <!-- Status bar -->
+      <div class="status-bar">
+        <span class="status-time" id="statusTime">10:41</span>
+        <div class="status-icons">
+          <div class="sig-bars">
+            <div class="sig-bar sb1"></div>
+            <div class="sig-bar sb2"></div>
+            <div class="sig-bar sb3"></div>
+            <div class="sig-bar sb4"></div>
           </div>
-          <input type="range" id="mslider" min="1" max="5" value="3" oninput="updMood(this.value)">
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+            <path d="M8 2.5 a7 7 0 0 1 7 7" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".35"/>
+            <path d="M8 5 a4.5 4.5 0 0 1 4.5 4.5" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <path d="M8 7.5 a2 2 0 0 1 2 2" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <circle cx="8" cy="11" r="1.2" fill="white"/>
+          </svg>
+          <div class="batt"><div class="batt-fill"></div></div>
         </div>
-        <div class="ccard">
-          <div class="clbl">Rate your day</div>
-          <div class="srow">
-            <div class="sitem">
-              <div class="shdr"><span class="slbl">&#x1F620; Stress level</span><span class="sval" id="sv1">3</span></div>
-              <input type="range" min="1" max="5" value="3" oninput="document.getElementById('sv1').textContent=this.value">
+      </div>
+      <!-- Dynamic Island -->
+      <div class="dynamic-island"></div>
+
+      <!-- App screens -->
+      <div class="pscreen">
+
+        <!-- Screen 0: Onboarding -->
+        <div class="ascreen active" id="s0">
+          <div class="orb-wrap">
+            <div class="pring"></div><div class="pring"></div><div class="pring"></div>
+            <div class="orb">&#x1F499;</div>
+          </div>
+          <div class="appname">UniPulse</div>
+          <p class="tagline">Check in. Earn rewards.<br>Feel supported.</p>
+          <div class="unibadge"><div class="ulogo">W</div>University of Waikato</div>
+          <button class="btnp" onclick="goScreen(1)">Get Started &rarr;</button>
+          <button class="btns">Sign in to existing account</button>
+        </div>
+
+        <!-- Screen 1: Check-in -->
+        <div class="ascreen" id="s1">
+          <div class="sgreet">Kia ora &#x1F44B;</div>
+          <p class="ssub">Monday, 2 June &middot; Daily check-in</p>
+          <div class="ccard">
+            <div class="clbl">How are you feeling?</div>
+            <div class="memojis">
+              <span class="memoji" data-v="1">&#x1F622;</span>
+              <span class="memoji" data-v="2">&#x1F615;</span>
+              <span class="memoji on" data-v="3">&#x1F610;</span>
+              <span class="memoji" data-v="4">&#x1F642;</span>
+              <span class="memoji" data-v="5">&#x1F604;</span>
             </div>
-            <div class="sitem">
-              <div class="shdr"><span class="slbl">&#x1F634; Sleep quality</span><span class="sval" id="sv2">3</span></div>
-              <input type="range" min="1" max="5" value="3" oninput="document.getElementById('sv2').textContent=this.value">
-            </div>
-            <div class="sitem">
-              <div class="shdr"><span class="slbl">&#x1F91D; Social connection</span><span class="sval" id="sv3">3</span></div>
-              <input type="range" min="1" max="5" value="3" oninput="document.getElementById('sv3').textContent=this.value">
+            <input type="range" id="mslider" min="1" max="5" value="3" oninput="updMood(this.value)">
+          </div>
+          <div class="ccard">
+            <div class="clbl">Rate your day</div>
+            <div class="srow">
+              <div class="sitem">
+                <div class="shdr"><span class="slbl">&#x1F620; Stress level</span><span class="sval" id="sv1">3</span></div>
+                <input type="range" min="1" max="5" value="3" oninput="document.getElementById('sv1').textContent=this.value">
+              </div>
+              <div class="sitem">
+                <div class="shdr"><span class="slbl">&#x1F634; Sleep quality</span><span class="sval" id="sv2">3</span></div>
+                <input type="range" min="1" max="5" value="3" oninput="document.getElementById('sv2').textContent=this.value">
+              </div>
+              <div class="sitem">
+                <div class="shdr"><span class="slbl">&#x1F91D; Social connection</span><span class="sval" id="sv3">3</span></div>
+                <input type="range" min="1" max="5" value="3" oninput="document.getElementById('sv3').textContent=this.value">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="ccard">
-          <div class="clbl">What&#39;s on your mind today?</div>
-          <textarea class="tinp" rows="3" placeholder="Share anything — it&#39;s anonymous..."></textarea>
-        </div>
-        <button class="subbtn" id="subBtn" onclick="doSubmit()">
-          <span class="pdot"></span>Submit Check-in
-        </button>
-      </div>
-      <!-- Screen 2: Results -->
-      <div class="ascreen" id="s2">
-        <div class="rhdr">
-          <div style="font-size:38px">&#x1F389;</div>
-          <div style="font-size:16px;font-weight:800;margin:8px 0 4px">Check-in Complete!</div>
-          <div style="font-size:13px;color:var(--dim)">Here&#39;s your reward progress</div>
-          <div class="pts" id="ptsDis">0</div>
-          <div class="ptslbl">total points earned</div>
-          <div class="streak">&#x1F525; 7 day streak</div>
-        </div>
-        <div class="progsec">
-          <div class="proghdr">
-            <span>Progress to Gym Pass &#x1F3CB;</span>
-            <span style="color:var(--cyan)">75 / 100 pts</span>
+          <div class="ccard">
+            <div class="clbl">What&#39;s on your mind today?</div>
+            <textarea class="tinp" rows="3" placeholder="Share anything — it&#39;s anonymous..."></textarea>
           </div>
-          <div class="progbg"><div class="progfill" id="pbar"></div></div>
-          <div class="progsub">25 more points to unlock</div>
+          <button class="subbtn" id="subBtn" onclick="doSubmit()">
+            <span class="pdot"></span>Submit Check-in
+          </button>
         </div>
-        <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.9px;margin:4px 0 10px">Rewards Catalogue</div>
-        <div class="rgrid">
-          <div class="rcard" onclick="tapR(this)"><div class="rico">&#x1F3CB;</div><div class="rname">Gym Pass</div><div class="rpts">100 pts</div></div>
-          <div class="rcard" onclick="tapR(this)"><div class="rico">&#x2615;</div><div class="rname">Cafe Voucher</div><div class="rpts">150 pts</div></div>
-          <div class="rcard lkd" onclick="tapR(this)"><div class="rico">&#x1F39F;</div><div class="rname">Event Ticket</div><div class="rpts">300 pts</div></div>
-          <div class="rcard lkd" onclick="tapR(this)"><div class="rico">&#x1F455;</div><div class="rname">Uni Merch</div><div class="rpts">500 pts</div></div>
+
+        <!-- Screen 2: Results -->
+        <div class="ascreen" id="s2">
+          <div class="rhdr">
+            <div style="font-size:36px">&#x1F389;</div>
+            <div style="font-size:16px;font-weight:800;margin:6px 0 3px">Check-in Complete!</div>
+            <div style="font-size:13px;color:var(--dim)">+10 points earned today</div>
+            <div class="pts" id="ptsDis">0</div>
+            <div class="ptslbl">points earned today</div>
+            <div class="streak">&#x1F525; 7 day streak</div>
+          </div>
+          <div class="progsec">
+            <div class="proghdr">
+              <span>Progress to Gym Pass &#x1F3CB;</span>
+              <span style="color:var(--cyan)">75 / 100 pts</span>
+            </div>
+            <div class="progbg"><div class="progfill" id="pbar"></div></div>
+            <div class="progsub">25 more points to unlock</div>
+          </div>
+          <!-- Streak Calendar -->
+          <div class="cal-wrap">
+            <div class="cal-lbl">&#x1F4C5; Last 60 days</div>
+            <div class="cal-grid" id="streakCal"></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.9px;margin:2px 0 8px">Rewards Catalogue</div>
+          <div class="rgrid">
+            <div class="rcard" onclick="tapR(this)"><div class="rico">&#x1F3CB;</div><div class="rname">Gym Pass</div><div class="rpts">100 pts</div></div>
+            <div class="rcard" onclick="tapR(this)"><div class="rico">&#x2615;</div><div class="rname">Cafe Voucher</div><div class="rpts">150 pts</div></div>
+            <div class="rcard lkd" onclick="tapR(this)"><div class="rico">&#x1F39F;</div><div class="rname">Event Ticket</div><div class="rpts">300 pts</div></div>
+            <div class="rcard lkd" onclick="tapR(this)"><div class="rico">&#x1F455;</div><div class="rname">Uni Merch</div><div class="rpts">500 pts</div></div>
+          </div>
+          <button class="bkbtn" onclick="goScreen(0)">&larr; Back to Start</button>
         </div>
-        <button class="bkbtn" onclick="goScreen(0)" style="margin-top:6px">&larr; Back to Start</button>
+
+      </div><!-- pscreen -->
+
+      <!-- Reward popup (inside iphone-display) -->
+      <div class="reward-popup" id="rewardPopup">
+        <div class="rp-emoji">&#x1F389;</div>
+        <div class="rp-title">+10 points earned!</div>
+        <div class="rp-sub">&#x1F525; 7 day streak &mdash; keep it up!</div>
       </div>
-    </div>
-  </div>
-</div>
+
+      <!-- iOS Push Notification -->
+      <div class="push-notif" id="pushNotif" onclick="dismissPush()">
+        <div class="push-ico">&#x1F31F;</div>
+        <div>
+          <div class="push-app">UniPulse &#x1F31F;</div>
+          <div class="push-msg">Time for your daily check-in! You&#39;re on a 7 day streak &mdash; don&#39;t break it &#x1F525;</div>
+          <div class="push-time">now</div>
+        </div>
+      </div>
+
+      <!-- Home indicator -->
+      <div class="home-ind"></div>
+    </div><!-- iphone-display -->
+  </div><!-- iphone-outer -->
+</div><!-- sv -->
 <!-- UNIVERSITY DASHBOARD -->
 <div id="dv" class="hidden">
   <div class="dhdr">
@@ -260,7 +423,13 @@ textarea.tinp::placeholder{color:var(--dim)}
       <div class="dlogo">&#x1F499;</div>
       <div class="dtitle"><h1>UniPulse</h1><p>University of Waikato &middot; Student Wellbeing Intelligence</p></div>
     </div>
-    <div class="livebadge"><div class="ldot"></div>Live &middot; Updated 2 min ago</div>
+    <div class="dhdr-right">
+      <div class="ticker-wrap">
+        <span class="ticker-num" id="studentTicker">847</span>
+        <span>students checked in today</span>
+      </div>
+      <div class="livebadge"><div class="ldot"></div>Live &middot; Updated 2 min ago</div>
+    </div>
   </div>
   <div class="srow2">
     <div class="scard"><div class="sico">&#x1F465;</div><div class="sval2" style="color:var(--cyan)">847</div><div class="slb">Active Students</div><div class="schg up">&#x2191; 12 since yesterday</div></div>
@@ -270,7 +439,6 @@ textarea.tinp::placeholder{color:var(--dim)}
   </div>
   <div class="dgrid">
     <div>
-      <!-- Heatmap -->
       <div class="panel">
         <div class="phdr"><div class="ptitle">Faculty Wellbeing Heatmap</div><div class="pmeta">Avg stress &middot; This week</div></div>
         <div class="hgrid">
@@ -282,7 +450,6 @@ textarea.tinp::placeholder{color:var(--dim)}
           <div class="fcrd gr"><div class="ftop"><div class="fname">&#x1F3E5; Health</div><div class="ftrend" style="color:var(--dim)">&#x2192;</div></div><div class="fbar"><div class="ffill" style="width:38%"></div></div><div class="fstats"><span>Stress <b>38%</b></span><span>Mood <b>4.1</b></span></div></div>
         </div>
       </div>
-      <!-- Trend Chart -->
       <div class="panel">
         <div class="phdr">
           <div class="ptitle">4-Week Trend Analysis</div>
@@ -297,19 +464,16 @@ textarea.tinp::placeholder{color:var(--dim)}
       </div>
     </div>
     <div>
-      <!-- AI Insights -->
       <div class="aipanel">
         <div class="aihdr">
           <div class="aiav">&#x1F916;</div>
-          <div><div class="ainame">UniPulse AI</div><div class="aisub">Pattern analysis &middot; 847 data points today</div></div>
+          <div>
+            <div class="ainame">UniPulse AI</div>
+            <div class="aisub"><div class="ai-dot"></div>Analysing 847 data points&hellip;</div>
+          </div>
         </div>
-        <div class="aimsg">
-          <span class="aihi">Engineering cohort stress is up 28%</span> ahead of Friday&#39;s submission deadline. Recommend proactive outreach via the Wellness Hub portal.<br><br>
-          <span class="aihi">Arts students are showing the best scores this semester</span> &mdash; engagement up 15% following the peer support programme launch in Week 1.<br><br>
-          Law faculty stress indicators are at a <span class="aihi r">semester high</span>. Consider scheduling a drop-in counselling session this week before it escalates further.
-        </div>
+        <div class="aimsg" id="aiText"></div>
       </div>
-      <!-- Alert -->
       <div class="alpanel">
         <div class="altop">
           <div class="aliwrap">&#x26A0;</div>
@@ -322,7 +486,6 @@ textarea.tinp::placeholder{color:var(--dim)}
           &rarr; Push Wellness Resources Now
         </button>
       </div>
-      <!-- Feed -->
       <div class="panel">
         <div class="phdr"><div class="ptitle">Anonymous Check-in Feed</div><div class="pmeta">Live &middot; Anonymised</div></div>
         <div class="flist">
@@ -336,134 +499,337 @@ textarea.tinp::placeholder{color:var(--dim)}
     </div>
   </div>
 </div>
+
+<!-- LIVE ALERT (fixed overlay, dashboard) -->
+<div class="live-alert" id="liveAlert">
+  <div class="la-top">
+    <div class="la-title">&#x1F6A8; New Alert: Year 1 Science</div>
+    <button class="la-x" onclick="dismissAlert()">&times;</button>
+  </div>
+  <div class="la-body">Stress scores down 18% in the last 24 hours. 23 students flagged for follow-up.</div>
+  <div class="la-foot">Just now &middot; Auto-generated by UniPulse AI</div>
+</div>
+
+<!-- CONFETTI -->
 <canvas id="ccv"></canvas>
+
+<!-- DEMO BUTTON -->
+<button class="demo-btn" id="demoBtn" onclick="startDemo()">&#x25B6; Demo</button>
 <script>
-function showView(v){
-  var isSV=v==='s';
-  document.getElementById('sv').style.display=isSV?'flex':'none';
-  var dv=document.getElementById('dv');
-  if(isSV)dv.classList.add('hidden');else dv.classList.remove('hidden');
-  document.getElementById('btnSV').classList.toggle('on',isSV);
-  document.getElementById('btnDV').classList.toggle('on',!isSV);
-  if(!isSV)setTimeout(drawChart,60);
+/* ── AI MESSAGE TEXT ── */
+var AI_TEXT = "Engineering cohort stress is up 28% ahead of Friday's submission deadline. Recommend proactive outreach via the Wellness Hub portal.\n\nArts students are showing the best scores this semester — engagement up 15% following the peer support programme launch in Week 1.\n\nLaw faculty stress indicators are at a semester high. Consider scheduling a drop-in counselling session this week before it escalates further.";
+
+/* ── WEB AUDIO ── */
+var audioCtx = null;
+function getAudioCtx(){
+  if(!audioCtx) try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){}
+  return audioCtx;
 }
-var cur=0;
+function playTick(){
+  try{
+    var ctx = getAudioCtx(); if(!ctx) return;
+    var osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(900, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.04);
+    gain.gain.setValueAtTime(0.07, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.05);
+  }catch(e){}
+}
+
+/* ── VIEW SWITCHING ── */
+var aiTyped = false, tickerInterval = null, alertTimer = null, liveAlertShown = false;
+function showView(v){
+  var isSV = v === 's';
+  document.getElementById('sv').style.display = isSV ? 'flex' : 'none';
+  var dv = document.getElementById('dv');
+  if(isSV){ dv.classList.add('hidden'); resetInactivity(); }
+  else{
+    dv.classList.remove('hidden');
+    setTimeout(drawChart, 60);
+    /* AI typing */
+    aiTyped = false;
+    document.getElementById('aiText').innerHTML = '';
+    setTimeout(startAITyping, 1500);
+    /* student ticker */
+    startStudentTicker();
+    /* live alert after 8s */
+    if(!liveAlertShown){ clearTimeout(alertTimer); alertTimer = setTimeout(showLiveAlert, 8000); }
+  }
+  document.getElementById('btnSV').classList.toggle('on', isSV);
+  document.getElementById('btnDV').classList.toggle('on', !isSV);
+}
+
+/* ── SCREEN NAV ── */
+var cur = 0;
 function goScreen(n){
   document.querySelectorAll('.ascreen').forEach(function(s,i){
     s.classList.remove('active','prev');
-    if(i<n)s.classList.add('prev');
+    if(i < n) s.classList.add('prev');
   });
   document.getElementById('s'+n).classList.add('active');
-  cur=n;
-  if(n===2)setTimeout(animResults,350);
+  cur = n;
+  if(n === 1){ resetInactivity(); }
+  if(n === 2){ setTimeout(animResults, 350); renderStreakCal(); }
+  /* hide reward popup when leaving s2 */
+  if(n !== 2){ document.getElementById('rewardPopup').classList.remove('show'); }
 }
+
+/* ── MOOD SLIDER ── */
 function updMood(v){
   document.querySelectorAll('.memoji').forEach(function(e){
-    e.classList.toggle('on',+e.dataset.v===+v);
+    e.classList.toggle('on', +e.dataset.v === +v);
   });
 }
 document.querySelectorAll('.memoji').forEach(function(e){
-  e.addEventListener('click',function(){
-    document.getElementById('mslider').value=e.dataset.v;
+  e.addEventListener('click', function(){
+    document.getElementById('mslider').value = e.dataset.v;
     updMood(e.dataset.v);
   });
 });
+
+/* ── SUBMIT ── */
 function doSubmit(){
-  var btn=document.getElementById('subBtn');
-  btn.innerHTML='&#x23F3; Submitting...';btn.style.opacity='.7';
+  var btn = document.getElementById('subBtn');
+  btn.innerHTML = '&#x23F3; Submitting...'; btn.style.opacity = '.7';
   setTimeout(function(){
-    btn.innerHTML='<span class="pdot"></span>Submit Check-in';
-    btn.style.opacity='1';goScreen(2);
-  },750);
+    btn.innerHTML = '<span class="pdot"></span>Submit Check-in';
+    btn.style.opacity = '1';
+    spawnConfetti();
+    goScreen(2);
+  }, 750);
 }
+
+/* ── RESULTS ANIMATIONS ── */
 function animResults(){
-  var el=document.getElementById('ptsDis'),target=75,dur=1450,t0=performance.now();
+  /* Points 0 → 10 with tick sounds */
+  var el = document.getElementById('ptsDis'), target = 10, dur = 1000, t0 = performance.now(), last = -1;
   (function step(now){
-    var p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);
-    el.textContent=Math.round(e*target);
-    if(p<1)requestAnimationFrame(step);
+    var p = Math.min((now - t0) / dur, 1);
+    var val = Math.round((1 - Math.pow(1-p, 3)) * target);
+    if(val !== last){ el.textContent = val; if(val > 0) playTick(); last = val; }
+    if(p < 1) requestAnimationFrame(step);
+    else setTimeout(function(){ document.getElementById('rewardPopup').classList.add('show'); }, 400);
   })(performance.now());
-  setTimeout(function(){document.getElementById('pbar').style.width='75%';},180);
-  spawnConfetti();
+  setTimeout(function(){ document.getElementById('pbar').style.width = '75%'; }, 200);
 }
-function tapR(c){c.style.transform='scale(.91)';setTimeout(function(){c.style.transform='';},160);}
+
+function tapR(c){ c.style.transform='scale(.91)'; setTimeout(function(){c.style.transform='';},160); }
+
+/* ── CONFETTI ── */
 function spawnConfetti(){
-  var cv=document.getElementById('ccv'),ctx=cv.getContext('2d');
-  cv.style.display='block';cv.width=innerWidth;cv.height=innerHeight;
-  var cols=['#00D4FF','#7B2FFF','#00E096','#FFD60A','#FF6B35','#FF3B5C','#ffffff'];
-  var ps=Array.from({length:140},function(){return{
-    x:Math.random()*innerWidth,y:-20-Math.random()*80,
-    w:Math.random()*10+4,h:Math.random()*5+3,
-    col:cols[0|Math.random()*cols.length],
-    vy:Math.random()*3.5+1.5,vx:Math.random()*3-1.5,
-    rot:Math.random()*Math.PI*2,sp:(Math.random()-.5)*.18
+  var cv = document.getElementById('ccv'), ctx = cv.getContext('2d');
+  cv.style.display = 'block'; cv.width = innerWidth; cv.height = innerHeight;
+  var cols = ['#00D4FF','#7B2FFF','#00E096','#FFD60A','#FF6B35','#FF3B5C','#ffffff'];
+  var ps = Array.from({length:150}, function(){ return {
+    x: Math.random()*innerWidth, y: -20 - Math.random()*80,
+    w: Math.random()*10+4, h: Math.random()*5+3,
+    col: cols[0|Math.random()*cols.length],
+    vy: Math.random()*4+1.5, vx: Math.random()*4-2,
+    rot: Math.random()*Math.PI*2, sp: (Math.random()-.5)*.2
   };});
-  var t0=null;
+  var t0 = null;
   (function draw(ts){
-    if(!t0)t0=ts;var el=ts-t0;
+    if(!t0) t0 = ts; var el = ts - t0;
     ctx.clearRect(0,0,cv.width,cv.height);
     ps.forEach(function(p){
-      p.y+=p.vy;p.x+=p.vx;p.rot+=p.sp;
-      var a=Math.max(0,1-Math.max(0,el-1800)/1400);
-      if(a<=0)return;
-      ctx.save();ctx.globalAlpha=a;ctx.translate(p.x,p.y);ctx.rotate(p.rot);
-      ctx.fillStyle=p.col;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
+      p.y+=p.vy; p.x+=p.vx; p.rot+=p.sp;
+      var a = Math.max(0, 1 - Math.max(0, el-1800)/1400);
+      if(a<=0) return;
+      ctx.save(); ctx.globalAlpha=a; ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle=p.col; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
     });
-    if(el<3200)requestAnimationFrame(draw);
-    else{cv.style.display='none';ctx.clearRect(0,0,cv.width,cv.height);}
+    if(el<3200) requestAnimationFrame(draw);
+    else{ cv.style.display='none'; ctx.clearRect(0,0,cv.width,cv.height); }
   })();
 }
+
+/* ── STREAK CALENDAR ── */
+function renderStreakCal(){
+  var cal = document.getElementById('streakCal');
+  if(cal.children.length > 0) return;
+  for(var i=0; i<60; i++){
+    var day = document.createElement('div'); day.className = 'cal-day';
+    var ago = 59 - i;
+    if(ago < 7){
+      day.style.background = 'var(--cyan)';
+    } else {
+      var r = Math.random();
+      if(r < 0.22)      day.style.background = 'rgba(0,212,255,0)';
+      else if(r < 0.48) day.style.background = 'rgba(0,212,255,0.18)';
+      else if(r < 0.74) day.style.background = 'rgba(0,212,255,0.45)';
+      else              day.style.background = 'rgba(0,212,255,0.8)';
+    }
+    cal.appendChild(day);
+  }
+}
+
+/* ── AI TYPING ANIMATION ── */
+function startAITyping(){
+  if(aiTyped) return; aiTyped = true;
+  var el = document.getElementById('aiText'); el.innerHTML = '';
+  var cursor = document.createElement('span'); cursor.className = 'ai-cursor'; el.appendChild(cursor);
+  var i = 0, text = AI_TEXT;
+  var iv = setInterval(function(){
+    if(i >= text.length){ clearInterval(iv); return; }
+    var ch = text[i];
+    if(ch === '\n'){
+      el.insertBefore(document.createElement('br'), cursor);
+      if(text[i+1] === '\n'){ el.insertBefore(document.createElement('br'), cursor); i++; }
+    } else {
+      el.insertBefore(document.createTextNode(ch), cursor);
+    }
+    i++;
+  }, 25);
+}
+
+/* ── LIVE ALERT ── */
+function showLiveAlert(){
+  liveAlertShown = true;
+  document.getElementById('liveAlert').classList.add('show');
+}
+function dismissAlert(){
+  document.getElementById('liveAlert').classList.remove('show');
+}
+
+/* ── STUDENT TICKER ── */
+var studentCount = 847;
+function startStudentTicker(){
+  if(tickerInterval) return;
+  tickerInterval = setInterval(function(){
+    studentCount++;
+    var el = document.getElementById('studentTicker');
+    if(!el) return;
+    el.textContent = studentCount;
+    el.classList.remove('flash');
+    void el.offsetWidth; /* reflow to restart animation */
+    el.classList.add('flash');
+  }, 4000);
+}
+
+/* ── PUSH NOTIFICATION ── */
+var inactTimer = null, pushVisible = false;
+function resetInactivity(){
+  if(document.getElementById('dv') && !document.getElementById('dv').classList.contains('hidden')) return;
+  clearTimeout(inactTimer);
+  if(!pushVisible) inactTimer = setTimeout(showPush, 5000);
+}
+function showPush(){
+  pushVisible = true;
+  document.getElementById('pushNotif').classList.add('show');
+  setTimeout(dismissPush, 4000);
+}
+function dismissPush(){
+  document.getElementById('pushNotif').classList.remove('show');
+  pushVisible = false;
+  resetInactivity();
+}
+['mousemove','touchstart','keydown'].forEach(function(ev){
+  document.addEventListener(ev, resetInactivity);
+});
+
+/* ── AUTO DEMO MODE ── */
+var demoRunning = false;
+function startDemo(){
+  if(demoRunning) return; demoRunning = true;
+  var btn = document.getElementById('demoBtn');
+  btn.textContent = '&#x23F8; Running...'; btn.style.color = 'var(--cyan)';
+
+  showView('s'); goScreen(0);
+
+  setTimeout(function(){ goScreen(1); }, 2000);
+
+  /* Animate sliders sequentially */
+  setTimeout(function(){
+    animSliderTo('mslider', 4, null, function(){
+      updMood(4);
+      animSliderTo(null, 2, 'sv1', function(){
+        animSliderTo(null, 4, 'sv2', function(){
+          animSliderTo(null, 3, 'sv3', null);
+        });
+      });
+    });
+  }, 4200);
+
+  setTimeout(function(){ doSubmit(); }, 5600);
+  setTimeout(function(){ showView('d'); demoRunning=false; btn.textContent='▶ Demo'; btn.style.color=''; }, 9800);
+}
+
+function animSliderTo(sliderId, val, labelId, cb){
+  var slider = sliderId ? document.getElementById(sliderId) : (labelId ? document.querySelector('[oninput*="'+labelId+'"]') : null);
+  if(!slider){ if(cb) cb(); return; }
+  var cur = parseInt(slider.value), dir = val > cur ? 1 : (val < cur ? -1 : 0);
+  if(dir === 0){ if(cb) cb(); return; }
+  var step = function(){
+    cur += dir; slider.value = cur;
+    if(labelId) document.getElementById(labelId).textContent = cur;
+    if(cur !== val) setTimeout(step, 180); else if(cb) setTimeout(cb, 100);
+  };
+  setTimeout(step, 180);
+}
+
+/* ── CANVAS CHART ── */
 function drawChart(){
-  var cv=document.getElementById('trendChart');if(!cv)return;
-  var par=cv.parentElement,dpr=devicePixelRatio||1;
-  var W=par.clientWidth-44,H=220;
-  cv.style.width=W+'px';cv.style.height=H+'px';
-  cv.width=W*dpr;cv.height=H*dpr;
-  var ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+  var cv = document.getElementById('trendChart'); if(!cv) return;
+  var par = cv.parentElement, dpr = devicePixelRatio||1;
+  var W = par.clientWidth - 44, H = 220;
+  cv.style.width=W+'px'; cv.style.height=H+'px';
+  cv.width=W*dpr; cv.height=H*dpr;
+  var ctx = cv.getContext('2d'); ctx.scale(dpr,dpr);
   var mood=[3.8,3.9,3.7,3.8,3.6,3.9,3.8,3.7,3.5,3.6,3.8,3.5,3.4,3.6,3.2,3.0,3.1,2.9,3.0,2.8,3.1,2.9,2.7,2.8,3.0,3.1,3.2,3.3];
   var stress=[2.5,2.3,2.6,2.4,2.7,2.5,2.4,2.8,2.9,2.7,3.0,3.1,2.9,3.0,3.5,3.7,3.8,3.9,4.0,4.2,3.9,4.1,4.3,4.2,3.9,3.7,3.5,3.3];
-  var n=mood.length,pad={t:20,r:14,b:36,l:34};
-  var cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
-  function xp(i){return pad.l+(i/(n-1))*cw;}
-  function yp(v){return pad.t+ch-(v/5)*ch;}
+  var n=mood.length, pad={t:20,r:14,b:36,l:34}, cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+  function xp(i){return pad.l+(i/(n-1))*cw;} function yp(v){return pad.t+ch-(v/5)*ch;}
   ctx.fillStyle='rgba(255,59,92,.07)';
   ctx.fillRect(xp(14),pad.t,xp(27)-xp(14),ch);
-  ctx.save();ctx.strokeStyle='rgba(255,59,92,.25)';ctx.setLineDash([4,4]);ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(xp(14),pad.t);ctx.lineTo(xp(14),pad.t+ch);ctx.stroke();
+  ctx.save(); ctx.strokeStyle='rgba(255,59,92,.25)'; ctx.setLineDash([4,4]); ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(xp(14),pad.t); ctx.lineTo(xp(14),pad.t+ch); ctx.stroke();
   ctx.restore();
   [1,2,3,4,5].forEach(function(v){
-    var y=yp(v);
-    ctx.strokeStyle='rgba(255,255,255,.045)';ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cw,y);ctx.stroke();
-    ctx.fillStyle='rgba(136,153,180,.7)';ctx.font='10px system-ui';ctx.textAlign='right';
+    var y=yp(v); ctx.strokeStyle='rgba(255,255,255,.045)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+cw,y); ctx.stroke();
+    ctx.fillStyle='rgba(136,153,180,.7)'; ctx.font='10px system-ui'; ctx.textAlign='right';
     ctx.fillText(v,pad.l-5,y+3.5);
   });
   ['Wk 1','Wk 2','Wk 3','Wk 4'].forEach(function(lbl,i){
-    ctx.fillStyle='rgba(136,153,180,.8)';ctx.font='11px system-ui';ctx.textAlign='center';
+    ctx.fillStyle='rgba(136,153,180,.8)'; ctx.font='11px system-ui'; ctx.textAlign='center';
     ctx.fillText(lbl,pad.l+(i/3)*cw,H-7);
   });
-  function drawLine(data,stroke,fillColor){
+  function drawLine(data,stroke,fill){
     var grad=ctx.createLinearGradient(0,pad.t,0,pad.t+ch);
-    grad.addColorStop(0,fillColor);grad.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.beginPath();ctx.moveTo(xp(0),yp(data[0]));
+    grad.addColorStop(0,fill); grad.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath(); ctx.moveTo(xp(0),yp(data[0]));
     for(var i=1;i<n;i++){var mx=(xp(i-1)+xp(i))/2;ctx.bezierCurveTo(mx,yp(data[i-1]),mx,yp(data[i]),xp(i),yp(data[i]));}
-    ctx.lineTo(xp(n-1),pad.t+ch);ctx.lineTo(xp(0),pad.t+ch);ctx.closePath();
-    ctx.fillStyle=grad;ctx.fill();
-    ctx.beginPath();ctx.moveTo(xp(0),yp(data[0]));
+    ctx.lineTo(xp(n-1),pad.t+ch); ctx.lineTo(xp(0),pad.t+ch); ctx.closePath();
+    ctx.fillStyle=grad; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(xp(0),yp(data[0]));
     for(var i=1;i<n;i++){var mx=(xp(i-1)+xp(i))/2;ctx.bezierCurveTo(mx,yp(data[i-1]),mx,yp(data[i]),xp(i),yp(data[i]));}
-    ctx.strokeStyle=stroke;ctx.lineWidth=2.5;ctx.shadowColor=stroke;ctx.shadowBlur=7;
-    ctx.stroke();ctx.shadowBlur=0;
+    ctx.strokeStyle=stroke; ctx.lineWidth=2.5; ctx.shadowColor=stroke; ctx.shadowBlur=7;
+    ctx.stroke(); ctx.shadowBlur=0;
     [0,7,14,21,27].forEach(function(i){
-      ctx.beginPath();ctx.arc(xp(i),yp(data[i]),4,0,Math.PI*2);
-      ctx.fillStyle=stroke;ctx.shadowColor=stroke;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+      ctx.beginPath(); ctx.arc(xp(i),yp(data[i]),4,0,Math.PI*2);
+      ctx.fillStyle=stroke; ctx.shadowColor=stroke; ctx.shadowBlur=10; ctx.fill(); ctx.shadowBlur=0;
     });
   }
   drawLine(stress,'#7B2FFF','rgba(123,47,255,.22)');
   drawLine(mood,'#00D4FF','rgba(0,212,255,.22)');
 }
-window.addEventListener('resize',function(){
-  if(!document.getElementById('dv').classList.contains('hidden'))drawChart();
+window.addEventListener('resize', function(){
+  if(!document.getElementById('dv').classList.contains('hidden')) drawChart();
 });
+
+/* ── STATUS BAR CLOCK ── */
+function updateClock(){
+  var d = new Date(), h = d.getHours(), m = d.getMinutes();
+  var el = document.getElementById('statusTime');
+  if(el) el.textContent = h + ':' + (m < 10 ? '0'+m : m);
+}
+updateClock(); setInterval(updateClock, 30000);
+
+/* ── INIT ── */
+resetInactivity();
 </script>
 </body>
 </html>
